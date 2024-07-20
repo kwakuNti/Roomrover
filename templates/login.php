@@ -5,14 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/css/login.css">
+    <link rel="stylesheet" href="../public/css/snackbar.css">
     <script src="../public/js/snackbar.js"></script>
-    <title>Login | RoomRover</title>
+    
+    <title>Login | Ludiflex</title>
 </head>
 <body>
-       <!-- Snackbar -->
-       <div id="snackbar">Click on Forgot password to register</div>
-
+<div id="snackbar">Click on Forgot password to register</div>
     <div class="login-box">
+    <div class="image-container">
+    <img src="https://instructure-uploads-eu.s3.eu-west-1.amazonaws.com/account_153630000000000001/attachments/659/ashesiLogo%20long.png" alt="">
+    </div>
         <div class="login-header">
             <header>Login</header>
         </div>
