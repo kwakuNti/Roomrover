@@ -8,11 +8,11 @@ CREATE TABLE Users (
     LastName VARCHAR(50),
     DateOfBirth DATE,
     Gender VARCHAR(10),
-    Email VARCHAR(100) UNIQUE,
+    Email VARCHAR(60) UNIQUE,
     PhoneNumber VARCHAR(15),
     Password VARCHAR(255),
     UserType VARCHAR(10),
-    ProfileImage VARCHAR(255), -- or BLOB depending on storage choice
+    ProfileImage VARCHAR(255), 
     DisabilityStatus BOOLEAN
 );
 
