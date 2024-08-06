@@ -105,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Debugging: Print SQL query execution status
     if ($query->execute()) {
         echo "Profile updated successfully.<br>";
-        header("Location: ../montana-master/home.ph?msg=Profile updated successfully.");
+        header("Location: ../montana-master/home.php?msg=Profile updated successfully.");
     } else {
         echo "Failed to update profile: " . $query->error . "<br>";
         header("Location: ../templates/profile_setup.php?msg=Failed to update profile. Please try again.");
