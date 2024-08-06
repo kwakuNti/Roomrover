@@ -43,8 +43,8 @@
                                 <nav>
                                     <ul id="navigation">
                                         <li><a href="index.html">home</a></li>
-                                        <li><a href="hostels.php">hostels</a></li>
-                                        <li><a class="active" href="about.html">About</a></li>
+                                        <li><a class="active" href="hostels.php">hostels</a></li>
+                                        <li><a href="about.html">About</a></li>
                                         <li><a href="#">pages <i class="ti-angle-down"></i></a>
                                             <ul class="submenu">
                                                 <li><a href="elements.html">elements</a></li>
@@ -58,9 +58,9 @@
                         <div class="col-xl-2 col-lg-2">
                             <div class="logo-img">
                                 <a href="index.html">
-                                    <img src="img/logo.png" alt="">
+                                    <img src="img/ashesiLogo.png" alt="" class="logo-size">
                                 </a>
-                            </div>
+                            </div> 
                         </div>
                         <div class="col-xl-5 col-lg-4 d-none d-lg-block">
                             <div class="book_room">
@@ -99,76 +99,170 @@
     <!-- header-end -->
 
     <!-- bradcam_area_start -->
+    <a href="kofi_tawiah.php">
     <div class="bradcam_area breadcam_bg">
-        <h3>About Montana</h3>
+        <h3>KOFI TAWIAH</h3>
     </div>
+    </a>
+    <a href="wangari_mathai.php">
+        <div class="bradcam_area breadcam_bg_1">
+            <h3>WANGARI MATHAI</h3>
+        </div>
+    </a>
+    <a href="walter_sisulu.php">
+        <div class="bradcam_area breadcam_bg_2">
+            <h3>WALTER SISULU</h3>
+        </div>
+    </a>
+    <a href="affrimamu.php">
+        <div class="bradcam_area breadcam_bg">
+            <h3>AFFRIMAMU</h3>
+        </div>
+    </a>
+    <a href="oteng_korankye.php">
+        <div class="bradcam_area breadcam_bg_1">
+            <h3>OTENG KORANKYE</h3>
+        </div>
+    </a>
+    <a href="hostel_2c.php">
+        <div class="bradcam_area breadcam_bg_2">
+            <h3>HOSTEL 2C</h3>
+        </div>
+    </a>
+    <a href="hostel_2d.php">
+        <div class="bradcam_area breadcam_bg">
+            <h3>HOSTEL 2D</h3>
+        </div>
+    </a>
+
     <!-- bradcam_area_end -->
 
-    <!-- about_area_start -->
-    <div class="about_area">
+    <!-- offers_area_start -->
+    <div class="offers_area padding_top">
         <div class="container">
             <div class="row">
-                <div class="col-xl-5 col-lg-5">
-                    <div class="about_info">
-                        <div class="section_title mb-20px">
-                            <span>About Us</span>
-                            <h3>A Luxuries Hotel <br>
-                                    with Nature</h3>
-                        </div>
-                        <p>Suscipit libero pretium nullam potenti. Interdum, blandit phasellus consectetuer dolor ornare dapibus enim ut tincidunt rhoncus tellus sollicitudin pede nam maecenas, dolor sem. Neque sollicitudin enim. Dapibus lorem feugiat facilisi faucibus et. Rhoncus.</p>
-                        <a href="#" class="line-button">Learn More</a>
+                <div class="col-xl-12">
+                    <div class="section_title text-center mb-100">
+                        <span>Our Offers</span>
+                        <h3>Ongoing Offers</h3>
                     </div>
                 </div>
-                <div class="col-xl-7 col-lg-7">
-                    <div class="about_thumb d-flex">
-                        <div class="img_1">
-                            <img src="img/about/about_1.png" alt="">
+            </div>
+            <div class="row">
+                <div class="col-xl-4 col-md-4">
+                    <div class="single_offers">
+                        <div class="about_thumb">
+                            <img src="img/offers/1.png" alt="">
                         </div>
-                        <div class="img_2">
-                            <img src="img/about/about_2.png" alt="">
+                        <h3>Up to 35% savings on Club <br> 
+                                rooms and Suites</h3>
+                        <ul>
+                            <li>Luxaries condition</li>
+                            <li>3 Adults & 2 Children size</li>
+                            <li>Sea view side</li>
+                        </ul>
+                        <a href="#" class="book_now">book now</a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-4">
+                    <div class="single_offers">
+                        <div class="about_thumb">
+                            <img src="img/offers/2.png" alt="">
                         </div>
+                        <h3>Up to 35% savings on Club <br> 
+                                rooms and Suites</h3>
+                        <ul>
+                            <li>Luxaries condition</li>
+                            <li>3 Adults & 2 Children size</li>
+                            <li>Sea view side</li>
+                        </ul>
+                        <a href="#" class="book_now">book now</a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-4">
+                    <div class="single_offers">
+                        <div class="about_thumb">
+                            <img src="img/offers/3.png" alt="">
+                        </div>
+                        <h3>Up to 35% savings on Club <br> 
+                                rooms and Suites</h3>
+                        <ul>
+                            <li>Luxaries condition</li>
+                            <li>3 Adults & 2 Children size</li>
+                            <li>Sea view side</li>
+                        </ul>
+                        <a href="#" class="book_now">book now</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- about_area_end -->
+    <!-- offers_area_end -->
 
-    <!-- about_info_area_start -->
-    <div class="about_info_area">
-        <div class="about_active owl-carousel">
-            <div class="single_slider about_bg_1"></div>
-            <div class="single_slider about_bg_1"></div>
-            <div class="single_slider about_bg_1"></div>
-            <div class="single_slider about_bg_1"></div>
-        </div>
-    </div>
-    <!-- about_info_area_start -->
-
-    <!-- about_main_info_start -->
-    <div class="about_main_info">
+    <!-- features_room_startt -->
+    <div class="features_room">
         <div class="container">
             <div class="row">
-                <div class="col-xl-6 col-md-6">
-                    <div class="single_about_info">
-                        <h3>We Serve Fresh and <br>
-                            Delicious Food</h3>
-                            <p>Suscipit libero pretium nullam potenti. Interdum, blandit <br> phasellus consectetuer dolor ornare dapibus enim ut tincidunt <br> rhoncus tellus sollicitudin pede nam maecenas, dolor sem. <br> Neque sollicitudin enim. Dapibus lorem feugiat facilisi <br> faucibus et. Rhoncus.
-                            </p>
+                <div class="col-xl-12">
+                    <div class="section_title text-center mb-100">
+                        <span>Featured Rooms</span>
+                        <h3>Choose a Better Room</h3>
                     </div>
                 </div>
-                <div class="col-xl-6 col-md-6">
-                    <div class="single_about_info">
-                        <h3>We Serve Fresh and <br>
-                            Delicious Food</h3>
-                            <p>Suscipit libero pretium nullam potenti. Interdum, blandit <br> phasellus consectetuer dolor ornare dapibus enim ut tincidunt <br> rhoncus tellus sollicitudin pede nam maecenas, dolor sem. <br> Neque sollicitudin enim. Dapibus lorem feugiat facilisi <br> faucibus et. Rhoncus.
-                            </p>
+            </div>
+        </div>
+        <div class="rooms_here">
+            <div class="single_rooms">
+                <div class="room_thumb">
+                    <img src="img/rooms/1.png" alt="">
+                    <div class="room_heading d-flex justify-content-between align-items-center">
+                        <div class="room_heading_inner">
+                            <span>From $250/night</span>
+                            <h3>Superior Room</h3>
+                        </div>
+                        <a href="#" class="line-button">book now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="single_rooms">
+                <div class="room_thumb">
+                    <img src="img/rooms/2.png" alt="">
+                    <div class="room_heading d-flex justify-content-between align-items-center">
+                        <div class="room_heading_inner">
+                            <span>From $250/night</span>
+                            <h3>Deluxe Room</h3>
+                        </div>
+                        <a href="#" class="line-button">book now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="single_rooms">
+                <div class="room_thumb">
+                    <img src="img/rooms/3.png" alt="">
+                    <div class="room_heading d-flex justify-content-between align-items-center">
+                        <div class="room_heading_inner">
+                            <span>From $250/night</span>
+                            <h3>Signature Room</h3>
+                        </div>
+                        <a href="#" class="line-button">book now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="single_rooms">
+                <div class="room_thumb">
+                    <img src="img/rooms/4.png" alt="">
+                    <div class="room_heading d-flex justify-content-between align-items-center">
+                        <div class="room_heading_inner">
+                            <span>From $250/night</span>
+                            <h3>Couple Room</h3>
+                        </div>
+                        <a href="#" class="line-button">book now</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- about_main_info_end -->
+    <!-- features_room_end -->
 
     <!-- forQuery_start -->
     <div class="forQuery">
@@ -328,7 +422,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
             </div>
         </div>
     </footer>
-    <!-- footer_end -->
 
     <!-- form itself end-->
     <form id="test-form" class="white-popup-block mfp-hide">
@@ -422,6 +515,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
         });
     </script>
+
 
 
 </body>
