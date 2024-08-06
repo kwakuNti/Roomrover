@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     doneButton.addEventListener("click", () => {
-        window.location.href = "profile.php"; 
+        window.location.href = "profile_setup.php"; 
     });
 
     function switchSection(index) {

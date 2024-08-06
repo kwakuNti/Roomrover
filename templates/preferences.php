@@ -6,8 +6,19 @@
     <title>Preference Page</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <link rel="stylesheet" href="../public/css/preferences.css">
+    <link rel="stylesheet" href="../public/css/snackbar.css">
 </head>
 <body>
+<?php if (isset($_GET['msg'])): ?>
+        <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
+        <script>
+            window.onload = function() {
+                var snackbar = document.getElementById('snackbar');
+                snackbar.className = "show";
+                setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+            };
+        </script>
+    <?php endif; ?>
     <nav class="container-fluid">
         <ul>
             <li><strong>Preferences</strong></li>
