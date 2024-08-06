@@ -35,23 +35,17 @@ CREATE TABLE Bookings (
     FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID)
 );
 
-CREATE TABLE Questionnaires (
-    QuestionnaireID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID INT,
-    Interests TEXT,
-    StudyHabits TEXT,
-    SleepPatterns TEXT,
-    OtherCriteria TEXT,
-    FOREIGN KEY (UserID) REFERENCES Users(UserID)
-);
-
 CREATE TABLE Pairings (
     PairingID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID1 INT,
-    UserID2 INT,
-    CompatibilityScore DECIMAL(5,2),
-    FOREIGN KEY (UserID1) REFERENCES Users(UserID),
-    FOREIGN KEY (UserID2) REFERENCES Users(UserID)
+    CompatibilityScore DECIMAL(5,2)
+);
+
+CREATE TABLE PairingMembers (
+    PairingMemberID INT PRIMARY KEY AUTO_INCREMENT,
+    PairingID INT,
+    UserID INT,
+    FOREIGN KEY (PairingID) REFERENCES Pairings(PairingID),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
 CREATE TABLE Notifications (
@@ -68,4 +62,19 @@ CREATE TABLE Blacklist (
     Reason TEXT,
     DateAdded TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
+);
+
+-- Preferences table to store different preference options
+CREATE TABLE Preferences (
+    PreferenceID INT PRIMARY KEY AUTO_INCREMENT,
+    PreferenceName VARCHAR(100)
+);
+
+-- UserPreferences table to connect users to their preferences
+CREATE TABLE UserPreferences (
+    UserPreferenceID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID INT,
+    PreferenceID INT,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (PreferenceID) REFERENCES Preferences(PreferenceID)
 );
