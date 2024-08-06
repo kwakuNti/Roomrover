@@ -17,40 +17,40 @@
         <div id="likesSection" class="section active">
             <h2>Likes</h2>
             <div class="cards">
-                <div class="card" onclick="toggleSelection(this)">Reading</div>
-                <div class="card" onclick="toggleSelection(this)">Music</div>
-                <div class="card" onclick="toggleSelection(this)">Sports</div>
-                <div class="card" onclick="toggleSelection(this)">Traveling</div>
-                <div class="card" onclick="toggleSelection(this)">Cooking</div>
-                <div class="card" onclick="toggleSelection(this)">Gaming</div>
-                <div class="card" onclick="toggleSelection(this)">Photography</div>
-                <div class="card" onclick="toggleSelection(this)">Movies</div>
+                <div class="card" data-preference-id="1" onclick="toggleSelection(this)">Reading</div>
+                <div class="card" data-preference-id="2" onclick="toggleSelection(this)">Music</div>
+                <div class="card" data-preference-id="3" onclick="toggleSelection(this)">Sports</div>
+                <div class="card" data-preference-id="4" onclick="toggleSelection(this)">Traveling</div>
+                <div class="card" data-preference-id="5" onclick="toggleSelection(this)">Cooking</div>
+                <div class="card" data-preference-id="6" onclick="toggleSelection(this)">Gaming</div>
+                <div class="card" data-preference-id="7" onclick="toggleSelection(this)">Photography</div>
+                <div class="card" data-preference-id="8" onclick="toggleSelection(this)">Movies</div>
             </div>
         </div>
         <div id="dislikesSection" class="section">
             <h2>Dislikes</h2>
             <div class="cards">
-                <div class="card" onclick="toggleSelection(this)">Noise</div>
-                <div class="card" onclick="toggleSelection(this)">Crowds</div>
-                <div class="card" onclick="toggleSelection(this)">Cold weather</div>
-                <div class="card" onclick="toggleSelection(this)">Traffic</div>
-                <div class="card" onclick="toggleSelection(this)">Waiting</div>
-                <div class="card" onclick="toggleSelection(this)">Spam</div>
-                <div class="card" onclick="toggleSelection(this)">Bugs</div>
-                <div class="card" onclick="toggleSelection(this)">Heat</div>
+                <div class="card" data-preference-id="1" onclick="toggleSelection(this)">Noise</div>
+                <div class="card" data-preference-id="2" onclick="toggleSelection(this)">Crowds</div>
+                <div class="card" data-preference-id="3" onclick="toggleSelection(this)">Cold weather</div>
+                <div class="card" data-preference-id="4" onclick="toggleSelection(this)">Traffic</div>
+                <div class="card" data-preference-id="5" onclick="toggleSelection(this)">Waiting</div>
+                <div class="card" data-preference-id="6" onclick="toggleSelection(this)">Spam</div>
+                <div class="card" data-preference-id="7" onclick="toggleSelection(this)">Bugs</div>
+                <div class="card" data-preference-id="8" onclick="toggleSelection(this)">Heat</div>
             </div>
         </div>
         <div id="knowsSection" class="section">
             <h2>Knows</h2>
             <div class="cards">
-                <div class="card" onclick="toggleSelection(this)">JavaScript</div>
-                <div class="card" onclick="toggleSelection(this)">Python</div>
-                <div class="card" onclick="toggleSelection(this)">HTML & CSS</div>
-                <div class="card" onclick="toggleSelection(this)">Flutter</div>
-                <div class="card" onclick="toggleSelection(this)">React</div>
-                <div class="card" onclick="toggleSelection(this)">Dart</div>
-                <div class="card" onclick="toggleSelection(this)">SQL</div>
-                <div class="card" onclick="toggleSelection(this)">Node.js</div>
+                <div class="card" data-preference-id="1" onclick="toggleSelection(this)">JavaScript</div>
+                <div class="card" data-preference-id="2" onclick="toggleSelection(this)">Python</div>
+                <div class="card" data-preference-id="3" onclick="toggleSelection(this)">HTML & CSS</div>
+                <div class="card" data-preference-id="4" onclick="toggleSelection(this)">Flutter</div>
+                <div class="card" data-preference-id="5" onclick="toggleSelection(this)">React</div>
+                <div class="card" data-preference-id="6" onclick="toggleSelection(this)">Dart</div>
+                <div class="card" data-preference-id="7" onclick="toggleSelection(this)">SQL</div>
+                <div class="card" data-preference-id="8" onclick="toggleSelection(this)">Node.js</div>
             </div>
         </div>
     </main>
