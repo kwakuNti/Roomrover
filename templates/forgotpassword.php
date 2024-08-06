@@ -27,7 +27,7 @@
         </div>
         <form id="forgotPasswordForm" action="../actions/forgot_password.php" method="POST">
             <div class="input-box">
-                <input type="email" class="input-field" name="email" placeholder="Enter your email" autocomplete="off" required>
+                <input type="email" class="input-field" name="email" placeholder="Enter your email" autocomplete="off" required  required pattern="[a-zA-Z0-9._%+-]+@ashesi\.edu\.gh" title="Email must end with @ashesi.edu.gh">
             </div>
             <div class="input-submit">
                 <button class="submit-btn" id="submit" type="submit">Send Password</button>

@@ -30,8 +30,7 @@
         </div>
         <form id="loginForm" action="../actions/login_action.php" method="POST">
             <div class="input-box">
-            <input type="email" class="input-field" name="email" placeholder="Email" autocomplete="on" required
-            pattern="[a-zA-Z0-9._%+-]+@ashesi\.edu\.gh" title="Email must end with @ashesi.edu.gh">
+            <input type="email" class="input-field" name="email" placeholder="Email" autocomplete="on" required required pattern="[a-zA-Z0-9._%+-]+@ashesi\.edu\.gh" title="Email must end with @ashesi.edu.gh">
                     </div>
             <div class="input-box">
             <input type="password" class="input-field" name="password" placeholder="Password" autocomplete="on" required
@@ -42,7 +41,7 @@
                     <label for="check">Remember me</label>
                 </section>
                 <section>
-                    <a href="forgot_password.html">Forgot password</a>
+                    <a href="forgotpassword.php">Forgot password</a>
                 </section>
             </div>
             <div class="input-submit">
