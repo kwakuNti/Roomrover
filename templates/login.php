@@ -42,7 +42,7 @@
                     <label for="check">Remember me</label>
                 </section>
                 <section>
-                    <a href="forgot_password.html">Forgot password</a>
+                    <a href="forgotpassword.php">Forgot password</a>
                 </section>
             </div>
             <div class="input-submit">
