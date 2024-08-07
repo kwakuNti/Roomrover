@@ -36,10 +36,11 @@ $userID = $_SESSION['UserID'];
             <div class="front" style="background-image: url('../templates/img/banner/banner.png');">
                     <div class="inner">
                         <h2>R1</h2>
-                        <!-- <label for="card1" class="button" aria-hidden="true"> -->
-                        <label for="card1" class="button select-button" data-user-id=" <?php $userID; ?>" aria-hidden="true">
-                            Select
-                        </label>
+                        <div class="reposition">
+                            <label for="card1" class="button select-button" data-user-id=" <?php $userID; ?>" aria-hidden="true">
+                                Open
+                            </label>
+                        </div>    
                     </div>
                 </div>
                 <div class="back">
@@ -57,10 +58,20 @@ $userID = $_SESSION['UserID'];
                                 JOSEPH LARTEY
                             </label>
                         </div>
-                        <div class="description">
-                            <p> R1 is a two-in-a-room that shares a corridor and a bathroom with R2.
-                            The rooms available take either 2 or 4 occupants.
-                            All rooms that take 2 occupants are two times smaller than rooms that take 4 occupants.</p>
+                        <div class="info">
+                            <label for="card1" class="button return" aria-hidden="true">
+                                JOSEPH LARTEY
+                            </label>
+                        </div>
+                        <div class="info">
+                            <label for="card1" class="button return" aria-hidden="true">
+                                JOSEPH LARTEY
+                            </label>
+                        </div>
+                        <div class="ïnfo">
+                            <button for="card1" class="button return" data-user-id=" <?php $userID; ?>" aria-hidden="true">
+                                Select
+                            </button>
                         </div>
                         <label for="card1" class="button return" aria-hidden="true">
                             <a class="fas fa-arrow-left">Back</a>
