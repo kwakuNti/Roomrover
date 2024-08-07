@@ -1,4 +1,8 @@
-
+<?php
+include '../includes/userfunctions.php';
+// Fetch user details
+$userDetails = getUserDetails($userId);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,27 +39,22 @@
         <div class="header">
             <h1>Student details</h1>
             <div class="profile-pic">
-                <img src="../assets/images/hostel1.jpg" alt="Profile Picture">
+            <img src="<?php echo '../uploads/' . $userDetails['profile_image']; ?>" alt="Profile Picture">
             </div>
         </div>
         <div class="student-details">
             <div class="profile-pic">
-                <img src="../assets/images/hostel1.jpg" alt="Profile Picture">
+            <img src="<?php echo '../uploads/' . $userDetails['profile_image']; ?>" alt="Profile Picture">
             </div>
             <div class="details">
                 <div>
                     <span>Full name</span>
-                    <span class="i">Student Name</span>
-                    <a href="#">Edit</a>
-                </div>
-                <div>
-                    <span>University</span>
-                    <span class="i">University Name</span>
+                    <span class="i"><?php echo $userDetails['first_name'] . ' ' . $userDetails['last_name']; ?></span>
                     <a href="#">Edit</a>
                 </div>
                 <div>
                     <span>Email</span>
-                    <span class="i">student@example.com</span>
+                    <span class="i"><?php echo $userDetails['email']; ?></span>
                     <a href="#">Edit</a>
                 </div>
                 <div>
@@ -65,7 +64,7 @@
                 </div>
                 <div>
                     <span>Date of birth</span>
-                    <span class="i">DD/MM/YYYY</span>
+                    <span class="i"><?php echo $userDetails['date_of_birth']; ?></span>
                     <a href="#">Edit</a>
                 </div>
             </div>
