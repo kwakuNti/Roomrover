@@ -2,8 +2,8 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+session_start();
 
-include '../config/core.php';
 include '../config/connection.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Send the email
         $mail->send();
-        header("Location: ../templates/forgotpassword.php?msg=An email with your new password has been sent.");
+        header("Location: ../templates/login.php?msg=An email with your new password has been sent.");
     } catch (Exception $e) {
         error_log("Email sending failed: " . $mail->ErrorInfo);
         header("Location: ../templates/forgotpassword.php?msg=Failed to send email.");
