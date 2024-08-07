@@ -45,12 +45,8 @@
                                         <li><a href="home.php">home</a></li>
                                         <li><a href="hostels.php">hostels</a></li>
                                         <li><a href="about.php">About</a></li>
-                                        <li><a href="#">pages <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="elements.php">elements</a></li>
-                                            </ul>
-                                        </li>
                                         <li><a class="active" href="contact.php">Contact</a></li>
+                                        <li><a href="profile.php">Profile</a></li>
                                     </ul>
                                 </nav>
                             </div>

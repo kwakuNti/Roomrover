@@ -44,13 +44,9 @@
                                     <ul id="navigation">
                                         <li><a href="home.php">home</a></li>
                                         <li><a href="hostels.php">hostels</a></li>
-                                        <li><a class="active" href="about.html">About</a></li>
-                                        <li><a href="#">pages <i class="ti-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="elements.html">elements</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html">Contact</a></li>
+                                        <li><a class="active" href="about.php">About</a></li>
+                                        <li><a href="contact.php">Contact</a></li>
+                                        <li><a href="../templates/profile.php">Profile</a></li>
                                     </ul>
                                 </nav>
                             </div>
