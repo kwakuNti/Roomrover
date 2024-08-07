@@ -10,17 +10,18 @@
     <link rel="stylesheet" href="../public/css/notification.css">
     <link rel="stylesheet" href="../public/css/preferences.css">
     <link rel="stylesheet" href="../public/css/feedback.css">
+    <!-- <link rel="stylesheet" href="../public/css/roomates.css"> -->
 
     <script src="../public/js/snackbar.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-<div id="snackbar">Please complete your profile</div>
+<div id="snackbar">Please confirm your room details</div>
 
     <div class="sidebar">
         <nav>
             <a href="#" class="back"><i class="fas fa-arrow-left"></i></a>
-            <a href="roomates.php"><i class="fas fa-home"></i> Roomates</a>
+            <a href="#"><i class="fas fa-home"></i> Roomates</a>
             <a href="../templates/bio.php"><i class="fas fa-bed"></i>Bio</a>
             <a href="#" id="feedback-button"><i class="fas fa-comment"></i> Feedback</a>
             <a href="../templates/preferences.php"><i class="fas fa-cogs"></i> Preferences</a>
@@ -32,7 +33,7 @@
     </div>
     <div class="main-content">
         <div class="header">
-            <h1>Student details</h1>
+            <h1>Room details</h1>
             <div class="profile-pic">
                 <img src="../assets/images/hostel1.jpg" alt="Profile Picture">
             </div>
@@ -43,33 +44,31 @@
             </div>
             <div class="details">
                 <div>
-                    <span>Full name</span>
-                    <span class="i">Student Name</span>
-                    <a href="#">Edit</a>
+                    <span>Hostel name</span>
+                    <span class="i">Kofi Tawiah</span>
                 </div>
                 <div>
-                    <span>University</span>
-                    <span class="i">University Name</span>
-                    <a href="#">Edit</a>
+                    <span>Block name</span>
+                    <span class="i">K-block</span>
                 </div>
                 <div>
-                    <span>Email</span>
-                    <span class="i">student@example.com</span>
-                    <a href="#">Edit</a>
+                    <span>Room number</span>
+                    <span class="i">K6</span>
                 </div>
                 <div>
-                    <span>Nationality</span>
-                    <span class="i">Country</span>
-                    <a href="#">Edit</a>
+                    <span>Number of roomates</span>
+                    <span class="i">1</span>
                 </div>
                 <div>
-                    <span>Date of birth</span>
-                    <span class="i">DD/MM/YYYY</span>
-                    <a href="#">Edit</a>
+                    <p>Click <a href="roomate_profiles.php" class="profile-link" style= "color:blue">here</a> to see roommate profiles</p>
                 </div>
+                                
+                
             </div>
         </div>
     </div>
+    
+
       <!-- Notification Popup -->
       <div class="popup" id="notification-popup">
         <div class="popup-content">
