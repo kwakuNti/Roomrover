@@ -1308,13 +1308,17 @@ h3 {
 }
 
 .video_bg {
-    background-image: url(../img/video/video.png)
+    background-image: url(../img/video/video.png);
+    justify-content: center;
+    margin: auto;
 }
 
 .video_area {
     padding: 250px 0;
     background-size: cover;
-    background-position: center center
+    background-position: center center;
+    justify-content: center;
+    margin: auto;
 }
 
 @media (max-width: 767px) {
@@ -1331,7 +1335,9 @@ h3 {
 
 .video_area .video_area_inner span {
     font-size: 14px;
-    color: #fff
+    color: #fff;
+    justify-content: center;
+    margin: auto;
 }
 
 .video_area .video_area_inner h3 {
@@ -1340,7 +1346,7 @@ h3 {
     line-height: 56px;
     font-weight: 400;
     margin-top: 12px;
-    margin-bottom: 28px
+    margin-bottom: 28px;
 }
 
 @media (max-width: 767px) {
@@ -1354,17 +1360,20 @@ h3 {
     height: 60px;
     background: #fff;
     line-height: 60px;
-    font-size: 15px;
+    font-size: 35px;
     color: #923D41;
     display: inline-block;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
-    border-radius: 50%
+    border-radius: 50%;
+    align-content: center;
 }
 
 .video_area .video_area_inner a i {
     position: relative;
-    left: 2px
+    left: 2px;
+    justify-content: center;
+
 }
 
 .features_room {
@@ -1436,7 +1445,8 @@ h3 {
     left: 0;
     right: 0;
     bottom: 0px;
-    padding: 60px 60px 47px 60px
+    padding: 60px 60px 47px 60px;
+    margin: auto;
 }
 
 @media (max-width: 767px) {
@@ -1464,8 +1474,64 @@ h3 {
     font-size: 30px;
     color: #fff;
     position: relative;
-    z-index: 8
+    z-index: 8;
+    align-content: center;
+    align-self: center;
+    justify-content: center;
+    text-align: center;
 }
+
+
+
+
+/* Beginning of added css */
+.single_rooms {
+    display: flex;
+    justify-content: center; /* Center the entire room_heading */
+    align-items: center; /* Center vertically if needed */
+    text-align: center; /* Center text within the room_heading_inner */
+}
+
+.room_heading {
+    width: 100%;
+    text-align: center; /* Center text within the room_heading */
+}
+
+.room_heading_inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.room_heading_inner span,
+.room_heading_inner h3 {
+    text-align: center;
+    width: 100%;
+}
+
+.room_thumb img {
+    display: block;
+    margin: 0 auto; /* Center the image horizontally */
+}
+
+.line-button {
+    display: inline-block;
+    margin-left: auto;
+}
+/* End of added css */
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media (max-width: 767px) {
     .features_room .rooms_here .single_rooms .room_thumb .room_heading h3 {
@@ -1744,7 +1810,8 @@ h3 {
 
 @media (max-width: 767px) {
     .footer .footer_top .footer_widget {
-        margin-bottom: 30px
+        margin-bottom: 30px;
+        margin: auto;
     }
 }
 
@@ -1759,12 +1826,16 @@ h3 {
     font-weight: 400;
     color: #fff;
     text-transform: capitalize;
-    margin-bottom: 40px
+    margin-bottom: 40px;
+    width: 100%;
+
 }
 
 @media (max-width: 767px) {
     .footer .footer_top .footer_widget .footer_title {
-        margin-bottom: 20px
+        margin-bottom: 20px;
+        width: 100px
+
     }
 }
 
@@ -1783,7 +1854,7 @@ h3 {
 }
 
 .footer .footer_top .footer_widget ul li a:hover {
-    color: #923D41
+    color: #923D41;
 }
 
 .footer .footer_top .footer_widget .newsletter_form {
@@ -1817,7 +1888,7 @@ h3 {
     background: #923D41;
     padding: 10px;
     padding: 0 22px;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .footer .footer_top .footer_widget .newsletter_text {

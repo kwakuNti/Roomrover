@@ -1,3 +1,18 @@
+<?php
+include "../config/core.php";
+
+// Check if the user is logged in by checking if UserID is set in the session
+if (!isset($_SESSION['UserID'])) {
+    // If UserID is not set, redirect to login page
+    header("Location: ../templates/login.php?msg=Please log in first.");
+    exit();
+}
+
+// Retrieve the user ID from the session
+$userID = $_SESSION['UserID'];
+// echo $userID;
+?>
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -5,6 +20,7 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Montana</title>
+    
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 

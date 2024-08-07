@@ -1,3 +1,18 @@
+<?php
+include "../config/core.php";
+
+// Check if the user is logged in by checking if UserID is set in the session
+if (!isset($_SESSION['UserID'])) {
+    // If UserID is not set, redirect to login page
+    header("Location: ../templates/login.php?msg=Please log in first.");
+    exit();
+}
+
+// Retrieve the user ID from the session
+$userID = $_SESSION['UserID'];
+// echo $userID;
+?>
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -157,7 +172,7 @@
                     <div class="about_info">
                         <div class="section_title mb-20px">
                             <span>About Us</span>
-                            <h3>A Luxuries Hotel <br>
+                            <h3>A Luxuries Hostel <br>
                                 with Nature</h3>
                         </div>
                         <p>Suscipit libero pretium nullam potenti. Interdum, blandit phasellus consectetuer dolor ornare
@@ -188,7 +203,7 @@
                 <div class="col-xl-12">
                     <div class="section_title text-center mb-100">
                         <span>Our Offers</span>
-                        <h3>Ongoing Offers</h3>
+                        <h3>Off-Campus Hostels</h3>
                     </div>
                 </div>
             </div>
@@ -248,8 +263,8 @@
         <div class="video_area_inner text-center">
             <span>Montana Sea View</span>
             <h3>Relax and Enjoy your <br>
-                Vacation </h3>
-            <a href="https://www.youtube.com/watch?v=vLnPwxZdW4Y" class="video_btn popup-video">
+                Hostel's View </h3>
+            <a href="https://www.youtube.com/watch?v=drL55Zmv-pk" class="video_btn popup-video">
                 <i class="fa fa-play"></i>
             </a>
         </div>
@@ -274,8 +289,8 @@
                     <div class="about_info">
                         <div class="section_title mb-20px">
                             <span>Delicious Food</span>
-                            <h3>We Serve Fresh and <br>
-                                Delicious Food</h3>
+                            <h3>We Offer the Best <br>
+                                Cleaning Services</h3>
                         </div>
                         <p>Suscipit libero pretium nullam potenti. Interdum, blandit phasellus consectetuer dolor ornare
                             dapibus enim ut tincidunt rhoncus tellus sollicitudin pede nam maecenas, dolor sem. Neque
@@ -295,7 +310,7 @@
                 <div class="col-xl-12">
                     <div class="section_title text-center mb-100">
                         <span>Featured Rooms</span>
-                        <h3>Choose Your Preferred Room</h3>
+                        <h3>Choose Your Preferred Hostel</h3>
                     </div>
                 </div>
             </div>
