@@ -13,7 +13,7 @@ body {
     background: white;
     color: #923d41;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for the whole body */
-    overflow: hidden; /* Prevent overflow caused by the box shadow */
+    overflow: auto; /* Prevent overflow caused by the box shadow */
 }
 
 .sidebar {
