@@ -263,6 +263,10 @@ body {
   font-size: larger;
 }
 
+.no-underline {
+  text-decoration: none; /* Remove underline */
+}
+
 .label {
   grid-row: -1;
   text-transform: uppercase;

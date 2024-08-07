@@ -48,7 +48,7 @@ $userID = $_SESSION['UserID'];
                         <div class="info">
                             <span>OCCUPANTS</span>
                         </div>
-                        <div class="info">
+                        <!-- <div class="info">
                             <button for="card1" class="button return" aria-hidden="true">
                                 HENRY BAIDEN
                             </button>
@@ -67,7 +67,28 @@ $userID = $_SESSION['UserID'];
                             <button for="card1" class="button return" aria-hidden="true">
                                 AVAILABLE
                             </button>
-                        </div>
+                        </div> -->
+                        <div class="info">
+    <a href="url_for_henry_baiden" class="button return no-underline" aria-hidden="true">
+        HENRY BAIDEN
+    </a>
+</div>
+<div class="info">
+    <a href="url_for_joseph_lartey" class="button return no-underline" aria-hidden="true">
+        JOSEPH LARTEY
+    </a>
+</div>
+<div class="info">
+    <a href="url_for_available1" class="button return no-underline" aria-hidden="true">
+        AVAILABLE
+    </a>
+</div>
+<div class="info">
+    <a href="url_for_available2" class="button return no-underline" aria-hidden="true">
+        AVAILABLE
+    </a>
+</div>
+
                         <label for="card1" class="label return" aria-hidden="true">
                             <a class="fas fa-arrow-left">Back</a>
                         </label>
