@@ -62,9 +62,6 @@
                         </div>
                         <div class="description">
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, accusamus.</p>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates earum nostrum ipsam
-                                ullam, reiciendis nam consectetur? Doloribus voluptate architecto possimus perferendis
-                                tenetur nemo amet temporibus, enim soluta nam, debitis.</p>
                         </div>
                         <div class="location">Warsaw, Poland</div>
                         <div class="price">38€ / day</div>
@@ -130,9 +127,6 @@
                                 odio vel veniam eveniet, explicabo autem earum?</p>
                             <ul>
                                 <li>Lorem ipsum dolor sit amet.</li>
-                                <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</li>
-                                <li>Lorem ipsum dolor sit amet consectetur.</li>
-                                <li>Lorem ipsum dolor sit amet.</li>
                             </ul>
                         </div>
                         <div class="location">Warsaw, Poland</div>
@@ -193,11 +187,7 @@
                             </div>
                         </div>
                         <div class="description">
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa libero
-                                totam nostrum consequatur autem quae provident quos alias fugit maxime nisi labore,
-                                temporibus tempore illo natus voluptates aliquam ipsum officia quasi placeat aut
-                                facilis
-                                laudantium nam!</p>
+                
                             <p>Quam, iusto.Neque ratione ut deserunt unde dicta nesciunt,
                                 repudiandae
                                 aspernatur explicabo numquam! Tenetur!</p>

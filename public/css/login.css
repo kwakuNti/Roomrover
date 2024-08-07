@@ -94,6 +94,7 @@ section a{
     border-radius: 30px;
     cursor: pointer;
     transition: .3s;
+    color: white;
 }
 .input-submit label{
     position: absolute;

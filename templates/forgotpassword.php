@@ -10,29 +10,49 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Forgot Password | Ludiflex</title>
 </head>
-<?php if (isset($_GET['msg'])): ?>
-    <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
-    <script>
-        window.onload = function() {
-            var snackbar = document.getElementById('snackbar');
-            snackbar.className = "show";
-            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
-        };
-    </script>
-<?php endif; ?>
 <body>
+    <?php if (isset($_GET['msg'])): ?>
+        <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
+        <script>
+            window.onload = function() {
+                var snackbar = document.getElementById('snackbar');
+                snackbar.className = "show";
+                setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+            };
+        </script>
+    <?php endif; ?>
+
+    <!-- Snackbar for validation errors -->
+    <div id="snackbar" class="snackbar"></div>
+
     <div class="login-box">
         <div class="login-header">
             <header>Forgot Password</header>
         </div>
-        <form id="forgotPasswordForm" action="../actions/forgot_password.php" method="POST">
+        <form id="forgotPasswordForm" action="../actions/forgot_password.php" method="POST" onsubmit="return validateForgotPasswordForm()">
             <div class="input-box">
-                <input type="email" class="input-field" name="email" placeholder="Enter your email" autocomplete="off" required>
+                <input type="email" id="email" class="input-field" name="email" placeholder="Enter your email" autocomplete="off" required pattern="[a-zA-Z0-9._%+-]+@ashesi\.edu\.gh" title="Email must end with @ashesi.edu.gh">
             </div>
             <div class="input-submit">
                 <button class="submit-btn" id="submit" type="submit">Send Password</button>
             </div>
         </form>
     </div>
+
+    <script>
+        function validateForgotPasswordForm() {
+            var email = document.getElementById('email').value;
+            var emailPattern = /@ashesi\.edu\.gh$/;
+            var snackbar = document.getElementById('snackbar');
+
+            if (!emailPattern.test(email)) {
+                snackbar.textContent = "Email must end with @ashesi.edu.gh";
+                snackbar.className = "snackbar show";
+                setTimeout(function() { snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission
+        }
+    </script>
 </body>
 </html>
