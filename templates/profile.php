@@ -21,7 +21,7 @@
         <nav>
             <!-- <a href="#" class="back"><i class="fas fa-arrow-left"></i></a> -->
             <a href="#" class="back" onclick="window.history.back(); return false;"><i class="fas fa-arrow-left"></i></a>
-            <a href="#"><i class="fas fa-home"></i> Roomates</a>
+            <a href="roomate_profiles.php"><i class="fas fa-home"></i> Roomates</a>
             <a href="../templates/bio.php"><i class="fas fa-bed"></i>Bio</a>
             <a href="#" id="feedback-button"><i class="fas fa-comment"></i> Feedback</a>
             <a href="../templates/preferences.php"><i class="fas fa-cogs"></i> Preferences</a>
