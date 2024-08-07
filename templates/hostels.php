@@ -144,7 +144,7 @@
                 <div class="col-xl-12">
                     <div class="section_title text-center mb-100">
                         <span>Featured Rooms</span>
-                        <h3>Choose a Better Room</h3>
+                        <h3>Off-Campus Rooms</h3>
                     </div>
                 </div>
             </div>
