@@ -1,6 +1,8 @@
 <?php
 // Starting a session
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Check if UserID is set in the session
 if (!isset($_SESSION['UserID'])) {
@@ -8,10 +10,16 @@ if (!isset($_SESSION['UserID'])) {
     header("Location: ../templates/login.php?msg=Please log in first.");
     exit();
 } else {
+    $user_id = ($_SESSION['UserID']);
+
     // Debugging: Print the UserID value from the session
+
     $userID = $_SESSION['UserID'];
 
     // Debugging: Print the UserID value
+
+    // $userID = $_SESSION['UserID'];
+
 }
 
 

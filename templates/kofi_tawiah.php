@@ -1,3 +1,18 @@
+<?php
+include "../config/core.php";
+
+// Check if the user is logged in by checking if UserID is set in the session
+if (!isset($_SESSION['UserID'])) {
+    // If UserID is not set, redirect to login page
+    header("Location: ../templates/login.php?msg=Please log in first.");
+    exit();
+}
+
+// Retrieve the user ID from the session
+$userID = $_SESSION['UserID'];
+// echo $userID;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Times New Roman:wght@400;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="../public/css/roomates.css">
 	<title>AdminSite</title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 </head>
 <body>
 <div class="wrapper">
@@ -20,9 +36,11 @@
             <div class="front" style="background-image: url('../templates/img/banner/banner.png');">
                     <div class="inner">
                         <h2>R1</h2>
-                        <label for="card1" class="button" aria-hidden="true">
-                            Details
-                        </label>
+                        <div class="reposition">
+                            <label for="card1" class="button select-button" data-user-id=" <?php $userID; ?>" aria-hidden="true">
+                                Open
+                            </label>
+                        </div>    
                     </div>
                 </div>
                 <div class="back">
@@ -40,10 +58,20 @@
                                 JOSEPH LARTEY
                             </label>
                         </div>
-                        <div class="description">
-                            <p> R1 is a two-in-a-room that shares a corridor and a bathroom with R2.
-                            The rooms available take either 2 or 4 occupants.
-                            All rooms that take 2 occupants are two times smaller than rooms that take 4 occupants.</p>
+                        <div class="info">
+                            <label for="card1" class="button return" aria-hidden="true">
+                                JOSEPH LARTEY
+                            </label>
+                        </div>
+                        <div class="info">
+                            <label for="card1" class="button return" aria-hidden="true">
+                                JOSEPH LARTEY
+                            </label>
+                        </div>
+                        <div class="ïnfo">
+                            <button for="card1" class="button return" data-user-id=" <?php $userID; ?>" aria-hidden="true">
+                                Select
+                            </button>
                         </div>
                         <label for="card1" class="button return" aria-hidden="true">
                             <a class="fas fa-arrow-left">Back</a>
@@ -474,6 +502,8 @@
 
     </div>
 	
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
 	<script src="../public/js/roomates.js"></script>
 </body>
 </html>

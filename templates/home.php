@@ -1,3 +1,18 @@
+<?php
+include "../config/core.php";
+
+// Check if the user is logged in by checking if UserID is set in the session
+if (!isset($_SESSION['UserID'])) {
+    // If UserID is not set, redirect to login page
+    header("Location: ../templates/login.php?msg=Please log in first.");
+    exit();
+}
+
+// Retrieve the user ID from the session
+$userID = $_SESSION['UserID'];
+// echo $userID;
+?>
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -184,7 +199,6 @@
 
         </div>
     </div>
-
     <!-- features_room_startt -->
     <div class="features_room">
         <div class="container">
@@ -192,7 +206,7 @@
                 <div class="col-xl-12">
                     <div class="section_title text-center mb-100">
                         <span>Featured Rooms</span>
-                        <h3>Choose Your Preferred Room</h3>
+                        <h3>Choose Your Preferred Hostel</h3>
                     </div>
                 </div>
             </div>
