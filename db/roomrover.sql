@@ -70,6 +70,17 @@ CREATE TABLE Preferences (
     PreferenceName VARCHAR(100)
 );
 
+-- Insert preferences
+INSERT INTO Preferences (PreferenceName) VALUES
+('Reading'),
+('Music'),
+('Sports'),
+('Traveling'),
+('Cooking'),
+('Gaming'),
+('Photography'),
+('Movies');
+
 -- UserPreferences table to connect users to their preferences
 CREATE TABLE UserPreferences (
     UserPreferenceID INT PRIMARY KEY AUTO_INCREMENT,
