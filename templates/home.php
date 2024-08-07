@@ -19,12 +19,13 @@ $userID = $_SESSION['UserID'];
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Montana</title>
+    <title>Home</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- <link rel="manifest" href="site.webmanifest"> -->
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+    <link rel="stylesheet" href="../public/css/snackbar.css">
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
@@ -41,8 +42,18 @@ $userID = $_SESSION['UserID'];
     <link rel="stylesheet" href="css/style.css">
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 </head>
-
+<?php if (isset($_GET['msg'])): ?>
+        <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
+        <script>
+            window.onload = function() {
+                var snackbar = document.getElementById('snackbar');
+                snackbar.className = "show";
+                setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+            };
+        </script>
+    <?php endif; ?>
 <body>
+
     <!--[if lte IE 9]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
         <![endif]-->
@@ -167,31 +178,26 @@ $userID = $_SESSION['UserID'];
     <!-- about_area_start -->
     <div class="about_area">
         <div class="container">
-            <div class="row">
-                <div class="col-xl-5 col-lg-5">
-                    <div class="about_info">
-                        <div class="section_title mb-20px">
-                            <span>About Us</span>
-                            <h3>A Luxuries Hostel <br>
-                                with Nature</h3>
-                        </div>
-                        <p>Suscipit libero pretium nullam potenti. Interdum, blandit phasellus consectetuer dolor ornare
-                            dapibus enim ut tincidunt rhoncus tellus sollicitudin pede nam maecenas, dolor sem. Neque
-                            sollicitudin enim. Dapibus lorem feugiat facilisi faucibus et. Rhoncus.</p>
-                        <a href="#" class="line-button">Learn More</a>
-                    </div>
-                </div>
-                <div class="col-xl-7 col-lg-7">
-                    <div class="about_thumb d-flex">
-                        <div class="img_1">
-                            <img src="img/about/about_1.png" alt="">
-                        </div>
-                        <div class="img_2">
-                            <img src="img/about/about_2.png" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="room-info">
+    <div class="room-details">
+        <div class="room-number">
+            <span class="label">Room Number</span>
+            <span class="value">A1</span>
+        </div>
+        <div class="room-type">
+            <span class="label">Room Type</span>
+            <span class="value">6-bed mixed dorm</span>
+        </div>
+        <div class="roommates">
+            <span class="label">Roommates</span>
+            <span class="value">4 roommates</span>
+        </div>
+        <div class="view-button">
+        <a href="roomates.php" class="view-btn">View</a>
+        </div>
+    </div>
+</div>
+
         </div>
     </div>
     <!-- about_area_end -->
