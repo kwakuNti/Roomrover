@@ -96,7 +96,7 @@
 
     <!-- bradcam_area_start -->
     <div class="bradcam_area breadcam_bg">
-        <h3>About Montana</h3>
+        <h3>About Ashesi's Hostels</h3>
     </div>
     <!-- bradcam_area_end -->
 
