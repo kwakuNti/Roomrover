@@ -84,13 +84,26 @@ $userDetails = getUserDetails($userId);
                 </div>
                 <!-- Bio Section -->
         <div>
-            <span>Bio</span>
-            <span class="i"><?php echo htmlspecialchars($userDetails['bio']); ?></span>
-            <a href="#" id="edit-bio">Edit</a>
+        <span>Bio</span>
+                <span class="i"><?php echo htmlspecialchars($userDetails['bio']); ?></span>
+                <a href="#" id="edit-bio">Edit</a>
         </div>
             </div>
         </div>
     </div>
+    
+
+    <!-- Bio Edit Pop-Up -->
+<div class="popup" id="edit-bio-popup">
+    <div class="popup-content">
+        <span class="close" id="close-bio-popup">&times;</span>
+        <form id="bioForm" action="../actions/update_bio.php" method="POST">
+            <label for="bio">Bio</label>
+            <textarea id="bio" name="bio" rows="4" required><?php echo htmlspecialchars($userDetails['bio']); ?></textarea>
+            <button type="submit" id="submit-bio">Update Bio</button>
+        </form>
+    </div>
+</div>
       <!-- Notification Popup -->
       <div class="popup" id="notification-popup">
         <div class="popup-content">
@@ -117,6 +130,22 @@ $userDetails = getUserDetails($userId);
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('edit-bio').onclick = function() {
+        document.getElementById('edit-bio-popup').style.display = 'flex';
+    };
+
+    document.getElementById('close-bio-popup').onclick = function() {
+        document.getElementById('edit-bio-popup').style.display = 'none';
+    };
+
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('edit-bio-popup')) {
+            document.getElementById('edit-bio-popup').style.display = 'none';
+        }
+    };
+</script>
 <script>
     document.getElementById('edit-bio').onclick = function() {
         document.getElementById('edit-bio-popup').style.display = 'flex';
