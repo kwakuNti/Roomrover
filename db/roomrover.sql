@@ -11,7 +11,10 @@ CREATE TABLE Users (
     Email VARCHAR(60) UNIQUE,
     PhoneNumber VARCHAR(15),
     Password VARCHAR(255),
+    Bio TEXT,
     UserType VARCHAR(10),
+    LinkedIn VARCHAR(255),
+    Instagram VARCHAR(255),
     ProfileImage VARCHAR(255), 
     DisabilityStatus BOOLEAN
 );
@@ -21,7 +24,8 @@ CREATE TABLE Rooms (
     RoomNumber VARCHAR(10),
     Building VARCHAR(50),
     Capacity INT,
-    AvailableSlots INT
+    AvailableSlots INT,
+    RoomImage VARCHAR(255)
 );
 
 CREATE TABLE Bookings (
@@ -29,8 +33,6 @@ CREATE TABLE Bookings (
     UserID INT,
     RoomID INT,
     BookingDate DATE,
-    CheckInDate DATE,
-    CheckOutDate DATE,
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID)
 );
@@ -64,28 +66,49 @@ CREATE TABLE Blacklist (
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
--- Preferences table to store different preference options
-CREATE TABLE Preferences (
-    PreferenceID INT PRIMARY KEY AUTO_INCREMENT,
-    PreferenceName VARCHAR(100)
+CREATE TABLE Feedback (
+    FeedbackID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID INT,
+    FeedbackText TEXT,
+    DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
--- Insert preferences
-INSERT INTO Preferences (PreferenceName) VALUES
-('Reading'),
-('Music'),
-('Sports'),
-('Traveling'),
-('Cooking'),
-('Gaming'),
-('Photography'),
-('Movies');
+CREATE TABLE Likes (
+    LikeID INT PRIMARY KEY AUTO_INCREMENT,
+    LikeText VARCHAR(255)
+);
 
--- UserPreferences table to connect users to their preferences
-CREATE TABLE UserPreferences (
-    UserPreferenceID INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE Dislikes (
+    DislikeID INT PRIMARY KEY AUTO_INCREMENT,
+    DislikeText VARCHAR(255)
+);
+
+CREATE TABLE Knows (
+    KnowID INT PRIMARY KEY AUTO_INCREMENT,
+    KnowText VARCHAR(255)
+);
+
+CREATE TABLE UserLikes (
+    UserLikeID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,
-    PreferenceID INT,
+    LikeID INT,
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
-    FOREIGN KEY (PreferenceID) REFERENCES Preferences(PreferenceID)
+    FOREIGN KEY (LikeID) REFERENCES Likes(LikeID)
+);
+
+CREATE TABLE UserDislikes (
+    UserDislikeID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID INT,
+    DislikeID INT,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (DislikeID) REFERENCES Dislikes(DislikeID)
+);
+
+CREATE TABLE UserKnows (
+    UserKnowID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID INT,
+    KnowID INT,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (KnowID) REFERENCES Knows(KnowID)
 );
