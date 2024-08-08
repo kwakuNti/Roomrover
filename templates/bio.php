@@ -1,4 +1,6 @@
-
+<?php
+include '../includes/bio_function.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +15,7 @@
        <section class="featured-box" id="home">
           <div class="featured-text">
             <div class="featured-text-card">
-                <span>Clifford Nkansah</span>
+            <span><?php echo $fullName; ?></span>
             </div>
             <div class="featured-name">
                 <p>I'm <span class="typedText"></span></p>
@@ -35,7 +37,7 @@
           </div>
           <div class="featured-image">
             <div class="image">
-                <img src="../assets/images/hostel1.jpg" alt="avatar">
+            <img src="<?php echo $profileImage; ?>" alt="<?php echo $fullName; ?>">
             </div>
           </div>
           <div class="scroll-icon-box">
@@ -113,7 +115,7 @@
              <div class="col">
                 <div class="contact-info">
                     <h2>Find Me <i class="uil uil-corner-right-down"></i></h2>
-                    <p><i class="uil uil-envelope"></i> Email: john@doe.com</p>
+                    <p><i class="uil uil-envelope"></i> Email: <?php echo $email; ?></p>
                     <p><i class="uil uil-phone"></i> Tel: +250 708 770 000</p>
                     <p><i class="uil uil-message"></i> Class of: 2025</p>
                 </div>
