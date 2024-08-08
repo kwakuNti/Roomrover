@@ -1,8 +1,7 @@
 <?php
 include "../config/core.php";
 include "../config/connection.php";
-
-include '../includes/userfunctions.php';
+include '../includes/notifications.php';
 // Fetch user details
 if (!isset($_SESSION['UserID'])) {
     // If UserID is not set, redirect to login page
@@ -66,26 +65,45 @@ $userDetails = getUserDetails($userId);
                 <div>
                     <span>Full name</span>
                     <span class="i"><?php echo $userDetails['first_name'] . ' ' . $userDetails['last_name']; ?></span>
-                    <a href="#">Edit</a>
+                    <a href="#"></a>
                 </div>
                 <div>
                     <span>Email</span>
                     <span class="i"><?php echo $userDetails['email']; ?></span>
-                    <a href="#">Edit</a>
+                    <a href="#"></a>
                 </div>
                 <div>
                     <span>Nationality</span>
-                    <span class="i">Country</span>
-                    <a href="#">Edit</a>
+                    <span class="i"><?php echo $userDetails['Country']; ?></span>
+                    <a href="#"></a>
                 </div>
                 <div>
                     <span>Date of birth</span>
                     <span class="i"><?php echo $userDetails['date_of_birth']; ?></span>
-                    <a href="#">Edit</a>
+                    <a href="#"></a>
                 </div>
+                <!-- Bio Section -->
+        <div>
+        <span>Bio</span>
+                <span class="i"><?php echo htmlspecialchars($userDetails['bio']); ?></span>
+                <a href="#" id="edit-bio">Edit</a>
+        </div>
             </div>
         </div>
     </div>
+    
+
+    <!-- Bio Edit Pop-Up -->
+<div class="popup" id="edit-bio-popup">
+    <div class="popup-content">
+        <span class="close" id="close-bio-popup">&times;</span>
+        <form id="bioForm" action="../actions/update_bio.php" method="POST">
+            <label for="bio">Bio</label>
+            <textarea id="bio" name="bio" rows="4" required><?php echo htmlspecialchars($userDetails['bio']); ?></textarea>
+            <button type="submit" id="submit-bio">Update Bio</button>
+        </form>
+    </div>
+</div>
       <!-- Notification Popup -->
       <div class="popup" id="notification-popup">
         <div class="popup-content">
@@ -94,21 +112,63 @@ $userDetails = getUserDetails($userId);
                 <div class="top-bar">
                     <div class="title">
                         <p class="title-text">Notifications</p>
-                        <p class="num">5</p>
                     </div>
-                    <a href="#" class="read">Mark all as read</a>
                 </div>
                 <div class="notifications">
-                    <!-- Example notifications -->
-                    <div class="single-box unseen">
-                        <div class="avatar"><img src="../assets/images/hostel1.jpg" alt="Avatar"></div>
-                        <div class="message">Hey can i be your roomate</div>
-                    </div>
-                    <div class="single-box unseen">
-                        <div class="avatar"><img src="../assets/images/hostel1.jpg" alt="Avatar"></div>
-                        <div class="message">You suck as a roomate andaodsndvklpodkdvd djfd ldfld dfhjdfjdf df dfldfjlkdf df dfldfldf d</div>
-                    </div>
-                </div>
+    <?php getNotifications($_SESSION['UserID'], $conn); ?>
+</div>
+<!-- Bio Edit Popup -->
+<div class="popup" id="edit-bio-popup">
+    <div class="popup-content">
+        <span class="close" id="close-bio-popup">&times;</span>
+        <div class="feedback-form">
+            <form id="bioForm" action="../actions/update_bio.php" method="POST">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" rows="4" required></textarea>
+                <button type="submit" id="submit-bio">Update Bio</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('edit-bio').onclick = function() {
+        document.getElementById('edit-bio-popup').style.display = 'flex';
+    };
+
+    document.getElementById('close-bio-popup').onclick = function() {
+        document.getElementById('edit-bio-popup').style.display = 'none';
+    };
+
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('edit-bio-popup')) {
+            document.getElementById('edit-bio-popup').style.display = 'none';
+        }
+    };
+</script>
+<script>
+    document.getElementById('edit-bio').onclick = function() {
+        document.getElementById('edit-bio-popup').style.display = 'flex';
+    };
+
+    document.getElementById('close-bio-popup').onclick = function() {
+        document.getElementById('edit-bio-popup').style.display = 'none';
+    };
+</script>
+<script>
+    function respondToRequest(notificationId, senderId, isAccepted) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "../actions/respond_request.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            location.reload(); // Reload the page to update the notifications
+        }
+    };
+    xhr.send("notificationId=" + notificationId + "&senderId=" + senderId + "&isAccepted=" + isAccepted);
+}
+
+</script>
             </div>
         </div>
     </div>

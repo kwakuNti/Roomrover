@@ -1,5 +1,6 @@
 <?php
 include '../includes/bio_function.php';
+$profileUserId = isset($_GET['user_id']) ? intval($_GET['user_id']) : null; // Get the profile user ID from the URL
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,9 +9,20 @@ include '../includes/bio_function.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <link rel="stylesheet" href="../public/css/bio.css">
+    <link rel="stylesheet" href="../public/css/snackbar.css">
     <title>Bio</title>
 </head>
-<body
+<body>
+<?php if (isset($_GET['msg'])): ?>
+        <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
+        <script>
+            window.onload = function() {
+                var snackbar = document.getElementById('snackbar');
+                snackbar.className = "show";
+                setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+            };
+        </script>
+    <?php endif; ?>
     <main class="wrapper">
        <section class="featured-box" id="home">
           <div class="featured-text">
@@ -25,9 +37,15 @@ include '../includes/bio_function.php';
                    and user-friendly websites.
                 </p>
             </div>
-            <div class="featured-text-btn">
-                <button class="btn blue-btn">Request As Roomate</button>
-            </div>
+            <<div class="featured-text-btn">
+            <form action="../actions/request_roomate.php" method="POST">
+    <input type="hidden" name="profileUserId" value="<?php echo $profileUserId; ?>">
+    <button type="submit" class="btn blue-btn">Request As Roommate</button>
+</form>
+
+
+</div>
+
             <div class="social_icons">
                 <div class="icon"><i class="uil uil-instagram"></i></div>
                 <div class="icon"><i class="uil uil-linkedin-alt"></i></div>

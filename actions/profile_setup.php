@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $dob = trim($_POST['DateOfBirth']);
     $gender = trim($_POST['Gender']);
     $phone = trim($_POST['PhoneNumber']);
+    $country = trim($_POST['Country']);
     $disabilityStatus = isset($_POST['DisabilityStatus']) ? 1 : 0;
     
     // Debugging: Print input values
@@ -99,8 +100,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Profile Image Path: " . ($profileImage ?: 'NULL') . "<br>";
 
     // Update user profile
-    $query = $conn->prepare("UPDATE users SET FirstName = ?, LastName = ?, DateOfBirth = ?, Gender = ?, PhoneNumber = ?, DisabilityStatus = ?, ProfileImage = ? WHERE UserID = ?");
-    $query->bind_param("sssssssi", $firstname, $lastname, $dob, $gender, $phone, $disabilityStatus, $profileImage, $userId);
+    $query = $conn->prepare("UPDATE users SET FirstName = ?, LastName = ?, DateOfBirth = ?, Gender = ?, PhoneNumber = ?, DisabilityStatus = ?, Country = ?, ProfileImage = ? WHERE UserID = ?");
+    $query->bind_param("ssssssssi", $firstname, $lastname, $dob, $gender, $phone, $disabilityStatus,$country, $profileImage, $userId);
     
     // Debugging: Print SQL query execution status
     if ($query->execute()) {
