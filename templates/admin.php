@@ -13,9 +13,9 @@
 	<section id="sidebar">
 		<a href="#" class="brand"><i class='bx bxs-smile icon'></i> Roomrover</a>
 		<ul class="side-menu">
-			<li><a href="#" class="active"><i class='bx bxs-dashboard icon' ></i> Dashboard</a></li>
+			<li><a href="admin.php" class="active"><i class='bx bxs-dashboard icon' ></i> Dashboard</a></li>
 			<li class="divider" data-text="main">Main</li>
-			<li>
+			<!-- <li>
 				<a href="#"><i class='bx bxs-inbox icon' ></i> Elements <i class='bx bx-chevron-right icon-right' ></i></a>
 				<ul class="side-dropdown">
 					<li><a href="#">Alert</a></li>
@@ -24,24 +24,24 @@
 					<li><a href="#">Button</a></li>
 				</ul>
 			</li>
-			<li><a href="#"><i class='bx bxs-chart icon' ></i> Charts</a></li>
-			<li><a href="#"><i class='bx bxs-widget icon' ></i> Widgets</a></li>
-			<li class="divider" data-text="table and forms">Table and forms</li>
-			<li><a href="#"><i class='bx bx-table icon' ></i> Tables</a></li>
+			<li><a href="#"><i class='bx bxs-chart icon' ></i> Charts</a></li> -->
+			<li><a href="add_room.php"><i class='bx bxs-widget icon' ></i> Add Room</a></li>
+			<li class="divider" data-text="table and forms">Block & Report</li>
+			<li><a href="blocked_users.php"><i class='bx bx-table icon' ></i> Block Users</a></li>
 			<li>
-				<a href="#"><i class='bx bxs-notepad icon' ></i> Forms <i class='bx bx-chevron-right icon-right' ></i></a>
-				<ul class="side-dropdown">
+				<a href="reports.php"><i class='bx bxs-notepad icon' ></i> Reports</a>
+				<!-- <ul class="side-dropdown">
 					<li><a href="#">Basic</a></li>
 					<li><a href="#">Select</a></li>
 					<li><a href="#">Checkbox</a></li>
 					<li><a href="#">Radio</a></li>
-				</ul>
+				</ul> -->
 			</li>
 		</ul>
 		<div class="ads">
 			<div class="wrapper">
-				<a href="#" class="btn-upgrade">Upgrade</a>
-				<p>Become a <span>PRO</span> member and enjoy <span>All Features</span></p>
+				<a href="#" class="btn-upgrade">Logout</a>
+				<!-- <p>Become a <span>PRO</span> member and enjoy <span>All Features</span></p> -->
 			</div>
 		</div>
 	</section>
@@ -149,9 +149,9 @@
 						<div id="chart"></div>
 					</div>
 				</div>
-				<div class="content-data">
+					<div class="content-data">
 					<div class="head">
-						<h3>Chatbox</h3>
+						<h3>Set Booking Time</h3>
 						<div class="menu">
 							<i class='bx bx-dots-horizontal-rounded icon'></i>
 							<ul class="menu-link">
@@ -161,50 +161,65 @@
 							</ul>
 						</div>
 					</div>
-					<div class="chat-box">
-						<p class="day"><span>Today</span></p>
-						<div class="msg">
-							<img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
-							<div class="chat">
-								<div class="profile">
-									<span class="username">Alan</span>
-									<span class="time">18:30</span>
-								</div>
-								<p>Hello</p>
-							</div>
-						</div>
-						<div class="msg me">
-							<div class="chat">
-								<div class="profile">
-									<span class="time">18:30</span>
-								</div>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque voluptatum eos quam dolores eligendi exercitationem animi nobis reprehenderit laborum! Nulla.</p>
-							</div>
-						</div>
-						<div class="msg me">
-							<div class="chat">
-								<div class="profile">
-									<span class="time">18:30</span>
-								</div>
-								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, architecto!</p>
-							</div>
-						</div>
-						<div class="msg me">
-							<div class="chat">
-								<div class="profile">
-									<span class="time">18:30</span>
-								</div>
-								<p>Lorem ipsum, dolor sit amet.</p>
-							</div>
-						</div>
-					</div>
-					<form action="#">
+					<form action="#" id="booking-form">
 						<div class="form-group">
-							<input type="text" placeholder="Type...">
-							<button type="submit" class="btn-send"><i class='bx bxs-send' ></i></button>
+							<label for="start-time">Start Time:</label>
+							<input type="datetime-local" id="start-time" name="start-time" required>
+						</div>
+						<div class="form-group">
+							<label for="end-time">End Time:</label>
+							<input type="datetime-local" id="end-time" name="end-time" required>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn-set">Set</button>
 						</div>
 					</form>
 				</div>
+				<style>
+					/* Updated CSS for the Booking Time Form */
+				#booking-form {
+					display: flex;
+					flex-direction: column;
+					gap: 15px;
+				}
+
+				#booking-form .form-group {
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+				}
+
+				#booking-form label {
+					flex-basis: 30%;
+					font-weight: bold;
+					color: #333;
+				}
+
+				#booking-form input[type="datetime-local"] {
+					flex-basis: 65%;
+					padding: 8px;
+					border: 1px solid #ccc;
+					border-radius: 5px;
+					font-size: 16px;
+				}
+
+				#booking-form .btn-set {
+					width: 100%;
+					padding: 10px;
+					border: none;
+					border-radius: 5px;
+					background-color: #923d41;
+					color: white;
+					font-size: 18px;
+					cursor: pointer;
+				}
+
+				#booking-form .btn-set:hover {
+					background-color: #45a049;
+				}
+
+				</style>
+
 			</div>
 		</main>
 		<!-- MAIN -->
