@@ -14,6 +14,7 @@ CREATE TABLE Users (
     PhoneNumber VARCHAR(15),
     Password VARCHAR(255),
     Bio TEXT,
+    Country VARCHAR(150),
     UserType VARCHAR(10),
     LinkedIn VARCHAR(255),
     Instagram VARCHAR(255),
