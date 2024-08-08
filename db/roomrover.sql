@@ -101,7 +101,7 @@ CREATE TABLE Requests (
     RequestDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
     Accepted BOOLEAN DEFAULT FALSE,   
     FOREIGN KEY (SenderUserID) REFERENCES Users(UserID),
-    FOREIGN KEY (ReceiverUserID) REFERENCES Users(UserID),
+    FOREIGN KEY (ReceiverUserID) REFERENCES Users(UserID)
 );
 
 CREATE TABLE Feedback (
