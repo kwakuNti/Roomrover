@@ -19,13 +19,21 @@ CREATE TABLE Users (
     DisabilityStatus BOOLEAN
 );
 
+-- Create the Hostels table
+CREATE TABLE Hostels (
+    HostelID INT PRIMARY KEY AUTO_INCREMENT,
+    HostelName VARCHAR(50) UNIQUE
+);
+
+-- Update the Rooms table to reference Hostels instead of Building
 CREATE TABLE Rooms (
     RoomID INT PRIMARY KEY AUTO_INCREMENT,
+    HostelID INT,
     RoomNumber VARCHAR(10),
-    Building VARCHAR(50),
     Capacity INT,
     AvailableSlots INT,
-    RoomImage VARCHAR(255)
+    RoomImage VARCHAR(255),
+    FOREIGN KEY (HostelID) REFERENCES Hostels(HostelID)
 );
 
 CREATE TABLE Bookings (
@@ -112,3 +120,28 @@ CREATE TABLE UserKnows (
     FOREIGN KEY (UserID) REFERENCES Users(UserID),
     FOREIGN KEY (KnowID) REFERENCES Knows(KnowID)
 );
+
+-- Populate the Hostels table with 7 hostels
+INSERT INTO Hostels (HostelName) VALUES
+('Hostel A'),
+('Hostel B'),
+('Hostel C'),
+('Hostel D'),
+('Hostel E'),
+('Hostel F'),
+('Hostel G');
+
+-- Populate the Rooms table with the new structure
+INSERT INTO Rooms (HostelID, RoomNumber, Capacity, AvailableSlots, RoomImage) VALUES
+(1, '101', 4, 2, 'images/room101.jpg'),
+(1, '102', 4, 4, 'images/room102.jpg'),
+(1, '103', 2, 1, 'images/room103.jpg'),
+(2, '201', 3, 3, 'images/room201.jpg'),
+(2, '202', 4, 3, 'images/room202.jpg'),
+(2, '203', 2, 2, 'images/room203.jpg'),
+(3, '301', 5, 1, 'images/room301.jpg'),
+(3, '302', 3, 0, 'images/room302.jpg'),
+(3, '303', 2, 1, 'images/room303.jpg'),
+(4, '401', 6, 4, 'images/room401.jpg'),
+(4, '402', 4, 2, 'images/room402.jpg'),
+(4, '403', 3, 1, 'images/room403.jpg');
