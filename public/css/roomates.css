@@ -199,20 +199,6 @@ body {
   white-space: nowrap;
 }
 
-.back .description {
-  /* grid-row: 5;
-  grid-column: 1/-1;
-  font-size: 0.86em;
-  border-radius: 5px;
-  font-weight: 600;
-  line-height: 1.4em;
-  overflow: auto;
-  color: var(--accent-color);
-  padding-right: 10px;
-  font-size: large;
-  font-family: 'Times New Roman', Times, serif; */
-}
-
 .back .location,
 .back .price {
   font-weight: 600;

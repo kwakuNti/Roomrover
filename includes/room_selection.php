@@ -1,19 +1,12 @@
 <?php
-
-// ../INCLUDE/ROOM_SELECTION.PHP
-
 function displayRooms()
 {
     include "../config/connection.php"; 
 
     $sql = "SELECT Rooms.RoomID, Rooms.RoomNumber, Rooms.Capacity, Rooms.RoomImage, 
-                   Hostels.HostelName,
-                   GROUP_CONCAT(CONCAT(Users.FirstName, ' ', Users.LastName) ORDER BY Users.LastName SEPARATOR ', ') AS Occupants
+                   Hostels.HostelName
             FROM Rooms
-            LEFT JOIN Bookings ON Rooms.RoomID = Bookings.RoomID
-            LEFT JOIN Users ON Bookings.UserID = Users.UserID
-            LEFT JOIN Hostels ON Rooms.HostelID = Hostels.HostelID
-            GROUP BY Rooms.RoomID, Rooms.RoomNumber, Rooms.Capacity, Rooms.RoomImage, Hostels.HostelName";
+            LEFT JOIN Hostels ON Rooms.HostelID = Hostels.HostelID";
 
     $result = $conn->query($sql);
 
@@ -23,7 +16,6 @@ function displayRooms()
             $roomNumber = $row["RoomNumber"];
             $roomImage = $row["RoomImage"];
             $hostelName = $row["HostelName"];
-            $occupants = $row["Occupants"] ? explode(', ', $row["Occupants"]) : [];
             $capacity = $row["Capacity"];
 
             echo '
@@ -46,13 +38,23 @@ function displayRooms()
                                 <span>OCCUPANTS</span>
                             </div>';
 
-            // Display slots based on room capacity
-            for ($i = 1; $i <= $capacity; $i++) {
-                $slotStatus = isset($occupants[$i-1]) ? $occupants[$i-1] : 'AVAILABLE';
+            for ($slotNumber = 1; $slotNumber <= $capacity; $slotNumber++) {
+                $occupantSql = "SELECT CONCAT(Users.FirstName, ' ', Users.LastName) AS OccupantName 
+                                FROM Bookings 
+                                LEFT JOIN Users ON Bookings.UserID = Users.UserID 
+                                WHERE Bookings.RoomID = ? AND Bookings.SlotID = (SELECT SlotID FROM Slots WHERE RoomID = ? AND SlotNumber = ?)";
+
+                $stmt = $conn->prepare($occupantSql);
+                $stmt->bind_param("iii", $roomID, $roomID, $slotNumber);
+                $stmt->execute();
+                $occupantResult = $stmt->get_result();
+
+                $occupantName = ($occupantResult->num_rows > 0) ? $occupantResult->fetch_assoc()["OccupantName"] : 'AVAILABLE';
+
                 echo '
                 <div class="info">
-                    <a href="../actions/room_selection.php?roomID=' . htmlspecialchars($roomID) . '&slotNumber=' . $i . '" class="button return no-underline" aria-hidden="true">'
-                    . htmlspecialchars($slotStatus) .
+                    <a href="../actions/room_selection.php?roomID=' . htmlspecialchars($roomID) . '&slotNumber=' . htmlspecialchars($slotNumber) . '" class="button return no-underline" aria-hidden="true">'
+                    . htmlspecialchars($occupantName) .
                   '</a>
                 </div>';
             }
@@ -72,5 +74,4 @@ function displayRooms()
 
     $conn->close();
 }
-
 ?>
