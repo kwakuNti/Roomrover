@@ -1,9 +1,10 @@
---  ../INCLUDE/ROOM_SELECTION.PHP
+-- Database: room_rover
 
 DROP DATABASE IF EXISTS room_rover;
 CREATE DATABASE room_rover;
 USE room_rover;
 
+-- Users table to store user information
 CREATE TABLE Users (
     UserID INT PRIMARY KEY AUTO_INCREMENT,
     FirstName VARCHAR(50),
@@ -21,13 +22,13 @@ CREATE TABLE Users (
     DisabilityStatus BOOLEAN
 );
 
--- Create the Hostels table
+-- Hostels table to store hostel information
 CREATE TABLE Hostels (
     HostelID INT PRIMARY KEY AUTO_INCREMENT,
     HostelName VARCHAR(50) UNIQUE
 );
 
--- Create the Rooms table, referencing Hostels
+-- Rooms table to store room information within each hostel
 CREATE TABLE Rooms (
     RoomID INT PRIMARY KEY AUTO_INCREMENT,
     HostelID INT,
@@ -37,7 +38,7 @@ CREATE TABLE Rooms (
     FOREIGN KEY (HostelID) REFERENCES Hostels(HostelID)
 );
 
--- Create the Slots table with SlotNumber
+-- Slots table to manage the availability of each slot within a room
 CREATE TABLE Slots (
     SlotID INT PRIMARY KEY AUTO_INCREMENT,
     RoomID INT,
@@ -46,7 +47,7 @@ CREATE TABLE Slots (
     FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID)
 );
 
--- Create the Bookings table, referencing SlotID from the Slots table
+-- Bookings table to manage the assignment of users to specific slots in rooms
 CREATE TABLE Bookings (
     BookingID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,
@@ -58,11 +59,13 @@ CREATE TABLE Bookings (
     FOREIGN KEY (SlotID) REFERENCES Slots(SlotID)
 );
 
+-- Pairings table to store potential room pairings and their compatibility scores
 CREATE TABLE Pairings (
     PairingID INT PRIMARY KEY AUTO_INCREMENT,
     CompatibilityScore DECIMAL(5,2)
 );
 
+-- PairingMembers table to associate users with specific pairings
 CREATE TABLE PairingMembers (
     PairingMemberID INT PRIMARY KEY AUTO_INCREMENT,
     PairingID INT,
@@ -71,6 +74,7 @@ CREATE TABLE PairingMembers (
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
+-- Notifications table to store notifications for users
 CREATE TABLE Notifications (
     NotificationID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,
@@ -79,6 +83,7 @@ CREATE TABLE Notifications (
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
+-- Blacklist table to manage users who have been blacklisted
 CREATE TABLE Blacklist (
     BlacklistID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,
@@ -87,6 +92,7 @@ CREATE TABLE Blacklist (
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
+-- Feedback table to store feedback from users
 CREATE TABLE Feedback (
     FeedbackID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,
@@ -95,6 +101,7 @@ CREATE TABLE Feedback (
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
+-- Likes, Dislikes, and Knows tables to manage user preferences and knowledge
 CREATE TABLE Likes (
     LikeID INT PRIMARY KEY AUTO_INCREMENT,
     LikeText VARCHAR(255)
@@ -110,6 +117,7 @@ CREATE TABLE Knows (
     KnowText VARCHAR(255)
 );
 
+-- UserLikes, UserDislikes, and UserKnows tables to associate preferences and knowledge with users
 CREATE TABLE UserLikes (
     UserLikeID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,
@@ -134,7 +142,7 @@ CREATE TABLE UserKnows (
     FOREIGN KEY (KnowID) REFERENCES Knows(KnowID)
 );
 
--- Populate the Hostels table with 7 hostels
+-- Insert initial data into Hostels table
 INSERT INTO Hostels (HostelName) VALUES
 ('Hostel A'),
 ('Hostel B'),
@@ -144,7 +152,7 @@ INSERT INTO Hostels (HostelName) VALUES
 ('Hostel F'),
 ('Hostel G');
 
--- Populate the Rooms table with the new structure
+-- Insert initial data into Rooms table
 INSERT INTO Rooms (HostelID, RoomNumber, Capacity, RoomImage) VALUES
 (1, '101', 4, '../templates/img/banner/banner.png'),
 (1, '102', 2, '../templates/img/banner/banner.png'),
@@ -159,7 +167,7 @@ INSERT INTO Rooms (HostelID, RoomNumber, Capacity, RoomImage) VALUES
 (4, '402', 4, '../templates/img/banner/banner.png'),
 (4, '403', 2, '../templates/img/banner/banner.png');
 
--- Populate the Slots table with slots for each room
+-- Insert initial data into Slots table
 INSERT INTO Slots (RoomID, SlotNumber, IsAvailable) VALUES
 (1, 1, TRUE),
 (1, 2, TRUE),
