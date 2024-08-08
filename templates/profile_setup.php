@@ -7,21 +7,20 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../public/css/profile_setup.css">
     <link rel="stylesheet" href="../public/css/snackbar.css">
-
     <title>Profile Setup</title>
 </head>
 <body>
 <?php if (isset($_GET['msg'])): ?>
-        <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
-        <script>
-            window.onload = function() {
-                var snackbar = document.getElementById('snackbar');
-                snackbar.className = "show";
-                setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
-            };
-        </script>
-    <?php endif; ?>
- <div class="wrapper">
+    <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
+    <script>
+        window.onload = function() {
+            var snackbar = document.getElementById('snackbar');
+            snackbar.className = "show";
+            setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+        };
+    </script>
+<?php endif; ?>
+<div class="wrapper">
     <!----------------------------- Profile Setup Form ----------------------------->
     <div class="form-box">
         <div class="profile-setup-container">
@@ -63,6 +62,12 @@
                     <input type="text" class="input-field" placeholder="Phone Number" name="PhoneNumber" required pattern="\d{10,15}" title="Phone number must be between 10 and 15 digits">
                     <i class="bx bx-phone"></i>
                 </div>
+                <div class="input-box">
+                    <select id="country" class="input-field" name="Country" required>
+                        <option value="" disabled selected>Select Country</option>
+                    </select>
+                    <i class="bx bx-globe"></i>
+                </div>
                 <div class="input-box checkbox">
                     <input type="checkbox" id="disabilityStatus" name="DisabilityStatus">
                     <label for="disabilityStatus">Disability Status</label>
@@ -74,5 +79,30 @@
         </div>
     </div>
 </div>   
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Fetch the countries data
+        fetch('https://restcountries.com/v3.1/all')
+            .then(response => response.json())
+            .then(data => {
+                const countrySelect = document.getElementById('country');
+                data.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country.name.common;
+                    option.text = country.name.common;
+                    countrySelect.add(option);
+                });
+                // Initialize select2 for the country dropdown
+                $('#country').select2({
+                    placeholder: 'Select a country',
+                    allowClear: true
+                });
+            })
+            .catch(error => console.error('Error fetching country data:', error));
+    });
+</script>
+<!-- Include the select2 library -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </body>
 </html>
