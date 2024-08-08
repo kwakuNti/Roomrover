@@ -17,17 +17,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    document.getElementById('feedbackForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        // You can add AJAX request here to submit the form to the server
-
-        // Show snackbar message
+    document.getElementById('feedbackForm').addEventListener('submit', function() {
+        // Show snackbar after form submission
         var snackbar = document.getElementById("snackbar");
         snackbar.className = "show";
         setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
-
-        // Clear form fields
-        this.reset();
-        feedbackPopup.style.display = 'none';
     });
 });

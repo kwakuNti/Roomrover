@@ -1,6 +1,14 @@
 <?php
+include "../config/core.php";
+include "../config/connection.php";
+
 include '../includes/userfunctions.php';
 // Fetch user details
+if (!isset($_SESSION['UserID'])) {
+    // If UserID is not set, redirect to login page
+    header("Location: ../templates/login.php?msg=Please log in first.");
+    exit();
+}
 $userDetails = getUserDetails($userId);
 ?>
 <!DOCTYPE html>
@@ -19,20 +27,28 @@ $userDetails = getUserDetails($userId);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-<div id="snackbar">Please complete your profile</div>
+<?php if (isset($_GET['msg'])): ?>
+        <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
+        <script>
+            window.onload = function() {
+                var snackbar = document.getElementById('snackbar');
+                snackbar.className = "show";
+                setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+            };
+        </script>
+    <?php endif; ?>
 
     <div class="sidebar">
         <nav>
             <!-- <a href="#" class="back"><i class="fas fa-arrow-left"></i></a> -->
             <a href="#" class="back" onclick="window.history.back(); return false;"><i class="fas fa-arrow-left"></i></a>
             <a href="roomates.php"><i class="fas fa-home"></i> Roomates</a>
-            <a href="../templates/bio.php"><i class="fas fa-bed"></i>Bio</a>
             <a href="#" id="feedback-button"><i class="fas fa-comment"></i> Feedback</a>
             <a href="../templates/preferences.php"><i class="fas fa-cogs"></i> Preferences</a>
             <a href="#" id="notification-link"><i class="fas fa-bell"></i> Notifications</a>
         </nav>
         <div class="logout">
-            <a href="#"><i class="fas fa-sign-out-alt"></i> Log out</a>
+        <a href="../actions/logout.php"><i class="fas fa-sign-out-alt"></i> Log out</a>
         </div>
     </div>
     <div class="main-content">
@@ -103,11 +119,11 @@ $userDetails = getUserDetails($userId);
     <div class="popup-content">
         <span class="close" id="close-feedback-popup">&times;</span>
         <div class="feedback-form">
-            <form id="feedbackForm">
-                <label for="message">Message</label>
+        <form id="feedbackForm" action="../actions/feedback.php" method="POST">
+        <label for="message">Message</label>
                 <textarea id="message" name="message" rows="4" required></textarea>
 
-                <button type="submit">Submit</button>
+                <button type="submit" id="submit" >Submit</button>
             </form>
         </div>
     </div>

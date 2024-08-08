@@ -1,7 +1,7 @@
 <?php
 include '../config/connection.php';
 include '../config/core.php';
-$userId = $_SESSION['user_id'];
+$userId = $_SESSION['UserID'];
 // user_functions.php
 function getUserDetails($userId) {
     global $conn; // Use the existing database connection

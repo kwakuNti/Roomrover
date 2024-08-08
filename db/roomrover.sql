@@ -15,6 +15,7 @@ CREATE TABLE Users (
     PhoneNumber VARCHAR(15),
     Password VARCHAR(255),
     Bio TEXT,
+    Country VARCHAR(150),
     UserType VARCHAR(10),
     LinkedIn VARCHAR(255),
     Instagram VARCHAR(255),
@@ -92,7 +93,17 @@ CREATE TABLE Blacklist (
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
--- Feedback table to store feedback from users
+
+CREATE TABLE Requests (
+    RequestID INT PRIMARY KEY AUTO_INCREMENT,
+    SenderUserID INT,          
+    ReceiverUserID INT,       
+    RequestDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    Accepted BOOLEAN DEFAULT FALSE,   
+    FOREIGN KEY (SenderUserID) REFERENCES Users(UserID),
+    FOREIGN KEY (ReceiverUserID) REFERENCES Users(UserID),
+);
+
 CREATE TABLE Feedback (
     FeedbackID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../public/css/snackbar.css">
     <script src="../public/js/snackbar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <title>Forgot Password | Ludiflex</title>
+    <title>Forgot Password</title>
 </head>
 <body>
     <?php if (isset($_GET['msg'])): ?>
