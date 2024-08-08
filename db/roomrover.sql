@@ -155,13 +155,13 @@ CREATE TABLE UserKnows (
 
 -- Insert initial data into Hostels table
 INSERT INTO Hostels (HostelName) VALUES
-('Hostel A'),
-('Hostel B'),
-('Hostel C'),
-('Hostel D'),
-('Hostel E'),
-('Hostel F'),
-('Hostel G');
+('Kofi Tawiah'),
+('Wangari Mathai'),
+('Walter Sisulu'),
+('Ephraim-Amu'),
+('Oteng Korankye'),
+('Hostel 2C'),
+('Hostel 2D');
 
 -- Insert initial data into Rooms table
 INSERT INTO Rooms (HostelID, RoomNumber, Capacity, RoomImage) VALUES
