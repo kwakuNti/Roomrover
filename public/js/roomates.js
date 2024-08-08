@@ -17,27 +17,30 @@ document.addEventListener("DOMContentLoaded", function() {
       },
   });
 
-  document.querySelectorAll(".select-button").forEach(function(button) {
-      button.addEventListener("click", function(event) {
-          event.preventDefault(); // Prevent default label behavior
-          const userId = this.getAttribute("data-user-id");
+//   // Function to send user ID
+//   function sendUserId(userId) {
+//     const xhr = new XMLHttpRequest();
+//     xhr.open("POST", "../actions/room_selection.php", true);
+//     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//     xhr.onreadystatechange = function () {
+//         if (xhr.readyState === 4 && xhr.status === 200) {
+//             console.log(xhr.responseText); // Handle the response from the server
+//             alert(xhr.responseText); // Show an alert with the response
+//         } else if (xhr.readyState === 4) {
+//             console.error("Error:", xhr.statusText); // Handle the error response
+//         }
+//     };
+//     xhr.send("userId=" + encodeURIComponent(userId));
+//   }
 
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", "../actions/room_selection.php", true);
-          xhr.setRequestHeader("Content-Type", "application/json");
+//   // Add event listeners to buttons
+//   document.querySelectorAll(".select-button").forEach(function(button) {
+//       button.addEventListener("click", function(event) {
+//           event.preventDefault(); // Prevent default button behavior
+//           const userId = this.getAttribute("data-user-id");
+//           sendUserId(userId); // Call the function with the user ID
+//       });
+//   });
 
-          xhr.onreadystatechange = function () {
-              if (xhr.readyState === 4) {
-                  if (xhr.status === 200) {
-                      console.log("Success:", xhr.responseText);
-                  } else {
-                      console.error("Error:", xhr.statusText);
-                  }
-              }
-          };
-
-          var data = JSON.stringify({ userId: userId });
-          xhr.send(data);
-      });
-  });
 });
+  

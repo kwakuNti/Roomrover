@@ -10,7 +10,7 @@ if (!isset($_SESSION['UserID'])) {
 
 // Retrieve the user ID from the session
 $userID = $_SESSION['UserID'];
-// echo $userID;
+echo $userID;
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +24,7 @@ $userID = $_SESSION['UserID'];
 	<link rel="stylesheet" href="../public/css/roomates.css">
 	<title>AdminSite</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
 <body>
 <div class="wrapper">
@@ -48,47 +49,27 @@ $userID = $_SESSION['UserID'];
                         <div class="info">
                             <span>OCCUPANTS</span>
                         </div>
-                        <!-- <div class="info">
-                            <button for="card1" class="button return" aria-hidden="true">
+                        
+                        <div class="info">
+                            <a href="../actions/room_selection.php" class="button return no-underline" aria-hidden="true">
                                 HENRY BAIDEN
-                            </button>
+                            </a>
                         </div>
                         <div class="info">
-                            <button for="card1" class="button return" aria-hidden="true">
+                            <a href="#" class="button return no-underline" aria-hidden="true">
                                 JOSEPH LARTEY
-                            </button>
+                            </a>
                         </div>
                         <div class="info">
-                            <button for="card1" class="button return" aria-hidden="true">
-                                AVALABLE
-                            </button>
-                        </div>
-                        <div class="info">
-                            <button for="card1" class="button return" aria-hidden="true">
+                            <a href="#" class="button return no-underline" aria-hidden="true">
                                 AVAILABLE
-                            </button>
-                        </div> -->
+                            </a>
+                        </div>
                         <div class="info">
-    <a href="url_for_henry_baiden" class="button return no-underline" aria-hidden="true">
-        HENRY BAIDEN
-    </a>
-</div>
-<div class="info">
-    <a href="url_for_joseph_lartey" class="button return no-underline" aria-hidden="true">
-        JOSEPH LARTEY
-    </a>
-</div>
-<div class="info">
-    <a href="url_for_available1" class="button return no-underline" aria-hidden="true">
-        AVAILABLE
-    </a>
-</div>
-<div class="info">
-    <a href="url_for_available2" class="button return no-underline" aria-hidden="true">
-        AVAILABLE
-    </a>
-</div>
-
+                            <a href="#" class="button return no-underline" aria-hidden="true">
+                                AVAILABLE
+                            </a>
+                        </div>
                         <label for="card1" class="label return" aria-hidden="true">
                             <a class="fas fa-arrow-left">Back</a>
                         </label>
@@ -413,9 +394,8 @@ $userID = $_SESSION['UserID'];
         </div>
 
     </div>
-	
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-	<script src="../public/js/roomates.js"></script>
+	<!-- <script src="../public/js/roomates.js"></script> -->
+    <script src="../public/js/roomates.js"></script>
 </body>
 </html>
