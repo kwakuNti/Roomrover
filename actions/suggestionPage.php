@@ -1,8 +1,16 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Include the core file for session handling
 include '../config/core.php';
 
-// Now we know the user is logged in and we have their UserID
+// Check if user is logged in and session user ID is set
+if (!isset($_SESSION['UserID'])) {
+    die("Error: User is not logged in.");
+}
+
+// Get the target user ID from the session
 $target_user_id = $_SESSION['UserID'];
 
 // Include the database configuration
@@ -28,39 +36,37 @@ function cosineSimilarity($a, $b) {
     return $dotProduct / ($normA * $normB);
 }
 
-// Function to retrieve user preferences from the database
-function getUserPreferences($conn) {
-    $sql = "SELECT up.UserID, p.PreferenceID
-            FROM UserPreferences up
-            JOIN Preferences p ON up.PreferenceID = p.PreferenceID";
+// Function to retrieve user likes, dislikes, and knows from the database
+function getUserAttributes($conn, $table) {
+    $sql = "SELECT UserID, {$table}ID FROM User{$table}s"; // Add 's' to match the table names
     $result = $conn->query($sql);
     
-    $userPreferences = [];
+    $userAttributes = [];
     while ($row = $result->fetch_assoc()) {
         $userID = $row['UserID'];
-        $preferenceID = $row['PreferenceID'];
-        if (!isset($userPreferences[$userID])) {
-            $userPreferences[$userID] = [];
+        $attributeID = $row["{$table}ID"];
+        if (!isset($userAttributes[$userID])) {
+            $userAttributes[$userID] = [];
         }
-        $userPreferences[$userID][] = $preferenceID;
+        $userAttributes[$userID][] = $attributeID;
     }
     
-    return $userPreferences;
+    return $userAttributes;
 }
 
-// Function to create a matrix of user preferences
-function createUserPreferenceMatrix($userPreferences) {
-    $allPreferences = [];
-    foreach ($userPreferences as $preferences) {
-        $allPreferences = array_merge($allPreferences, $preferences);
+// Function to create a matrix of user attributes
+function createUserAttributeMatrix($userAttributes) {
+    $allAttributes = [];
+    foreach ($userAttributes as $attributes) {
+        $allAttributes = array_merge($allAttributes, $attributes);
     }
-    $allPreferences = array_unique($allPreferences);
+    $allAttributes = array_unique($allAttributes);
     
     $matrix = [];
-    foreach ($userPreferences as $userID => $preferences) {
-        $matrix[$userID] = array_fill_keys($allPreferences, 0);
-        foreach ($preferences as $pref) {
-            $matrix[$userID][$pref] = 1;
+    foreach ($userAttributes as $userID => $attributes) {
+        $matrix[$userID] = array_fill_keys($allAttributes, 0);
+        foreach ($attributes as $attr) {
+            $matrix[$userID][$attr] = 1;
         }
     }
     
@@ -68,7 +74,7 @@ function createUserPreferenceMatrix($userPreferences) {
 }
 
 // Function to find similar users based on cosine similarity
-function findSimilarUsers($targetUserID, $matrix, $limit = 5) {
+function findSimilarUsers($targetUserID, $matrix) {
     $similarities = [];
     $targetVector = $matrix[$targetUserID];
     
@@ -86,20 +92,11 @@ function findSimilarUsers($targetUserID, $matrix, $limit = 5) {
         return $b['Similarity'] <=> $a['Similarity'];
     });
 
-    // Return only the top $limit similar users
-    return array_slice($similarities, 0, $limit);
+    return $similarities;
 }
 
 // Function to get user profile details
-function get_user_profile($userID) {
-    global $host, $user, $password, $database;
-
-    $conn = new mysqli($host, $user, $password, $database);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
+function get_user_profile($conn, $userID) {
     $sql = "SELECT UserID, FirstName, LastName, DateOfBirth, Gender, Email, PhoneNumber, UserType, ProfileImage, DisabilityStatus 
             FROM Users WHERE UserID = ?";
     $stmt = $conn->prepare($sql);
@@ -114,37 +111,74 @@ function get_user_profile($userID) {
     }
 
     $stmt->close();
-    $conn->close();
 
     return $user_profile;
 }
 
-// Set the number of similar users you want to return
-$number_of_similar_users = 3; // Change this to get more or fewer results
-
 // Database connection
-$conn = new mysqli($host, $user, $password, $database);
+$conn = new mysqli($db_server, $db_user, $db_password, $db_name);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get user preferences from the database
-$userPreferences = getUserPreferences($conn);
+// Get user attributes from the database
+$userLikes = getUserAttributes($conn, 'Like');
+$userDislikes = getUserAttributes($conn, 'Dislike');
+$userKnows = getUserAttributes($conn, 'Know');
 
-// Create the user-preference matrix
-$matrix = createUserPreferenceMatrix($userPreferences);
+// Debug: Print out the retrieved attributes
+echo "<h2>Debug Information:</h2>";
+echo "<pre>";
+echo "User Likes:\n";
+print_r($userLikes);
+echo "\nUser Dislikes:\n";
+print_r($userDislikes);
+echo "\nUser Knows:\n";
+print_r($userKnows);
+echo "</pre>";
+
+// Create the user-attribute matrices
+$likesMatrix = createUserAttributeMatrix($userLikes);
+$dislikesMatrix = createUserAttributeMatrix($userDislikes);
+$knowsMatrix = createUserAttributeMatrix($userKnows);
+
+// Merge matrices to create a combined attribute matrix
+$combinedMatrix = [];
+$allUsers = array_unique(array_merge(array_keys($likesMatrix), array_keys($dislikesMatrix), array_keys($knowsMatrix)));
+
+foreach ($allUsers as $userID) {
+    $combinedMatrix[$userID] = array_merge(
+        $likesMatrix[$userID] ?? [],
+        $dislikesMatrix[$userID] ?? [],
+        $knowsMatrix[$userID] ?? []
+    );
+}
+
+// Debug: Print out the combined matrix
+echo "<h2>Combined Matrix:</h2>";
+echo "<pre>";
+print_r($combinedMatrix);
+echo "</pre>";
+
+// Check if the target user exists in the combined matrix
+if (!isset($combinedMatrix[$target_user_id])) {
+    die("Error: Target user not found in the attribute matrices.");
+}
+
+// Output the target user vector for debugging
+echo "<h2>Target User Vector:</h2>";
+echo "<pre>";
+print_r($combinedMatrix[$target_user_id]);
+echo "</pre>";
 
 // Find similar users
-$similarUsers = findSimilarUsers($target_user_id, $matrix, $number_of_similar_users);
-
-$conn->close();
+$similarUsers = findSimilarUsers($target_user_id, $combinedMatrix);
 
 // Output similar users
-echo "<h1>Top {$number_of_similar_users} Similar Users for User {$target_user_id}</h1>";
-
+echo "<h1>Similar Users for User {$target_user_id}</h1>";
 foreach ($similarUsers as $pair) {
-    $user_profile = get_user_profile($pair['UserID']);
+    $user_profile = get_user_profile($conn, $pair['UserID']);
     $similarity = $pair['Similarity'];
 
     if (isset($user_profile['error'])) {
@@ -156,4 +190,15 @@ foreach ($similarUsers as $pair) {
     echo "<p>Similarity: {$similarity}%</p>";
     echo "</div><hr>";
 }
+
+// Test cosine similarity calculation with known vectors
+$vectorA = $combinedMatrix[$target_user_id];
+$testUserID = 1; // Example user ID to test similarity with
+$vectorB = $combinedMatrix[$testUserID] ?? [];
+
+$testSimilarity = cosineSimilarity(array_values($vectorA), array_values($vectorB));
+echo "<h2>Cosine Similarity Test:</h2>";
+echo "Similarity between User {$target_user_id} and User {$testUserID}: " . ($testSimilarity * 100) . "%";
+
+$conn->close();
 ?>
