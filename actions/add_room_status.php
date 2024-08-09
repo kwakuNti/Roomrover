@@ -13,15 +13,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Update the room availability in the database
     $query = "UPDATE Rooms SET Available = ? WHERE RoomID = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('bi', $roomStatus, $roomID); // 'b' for boolean
+    $stmt->bind_param('ii', $roomStatus, $roomID); // 'i' for integer
     
     if ($stmt->execute()) {
-        echo "Room status updated successfully.";
+        $msg = "Room status updated successfully.";
+        $status = "success";
     } else {
-        echo "Error updating room status: " . $conn->error;
+        $msg = "Error updating room status: " . $conn->error;
+        $status = "error";
     }
 
     $stmt->close();
     $conn->close();
+
+    // Redirect with feedback message
+    header("Location: your_page.php?status=$status&msg=" . urlencode($msg));
+    exit();
 }
 ?>
