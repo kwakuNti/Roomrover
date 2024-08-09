@@ -1,5 +1,5 @@
 <?php
-function displayRooms($hostelOffset = 1) {
+function displayRooms($hostelOffset = 3) {
     include "../config/connection.php"; 
 
     // Select the hostel based on the offset provided (e.g., 1 for first, 2 for second)
