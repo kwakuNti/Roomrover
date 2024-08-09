@@ -1,5 +1,5 @@
 <?php
-include '../config/core.php';
+
 
 function checkUserRole($conn) {
         // Check if the user is logged in
