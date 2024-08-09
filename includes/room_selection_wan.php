@@ -1,20 +1,23 @@
 <?php
-function displayRooms() {
+function displayRooms($hostelOffset = 1) {
     include "../config/connection.php"; 
 
-    // Select the first hostel
-    $sql = "SELECT HostelID FROM Hostels ORDER BY HostelID ASC LIMIT 2";
-    $result = $conn->query($sql);
+    // Select the hostel based on the offset provided (e.g., 1 for first, 2 for second)
+    $sql = "SELECT HostelID FROM Hostels ORDER BY HostelID ASC LIMIT 1 OFFSET ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $hostelOffset);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        $firstHostel = $result->fetch_assoc();
-        $hostelID = $firstHostel['HostelID'];
+        $hostel = $result->fetch_assoc();
+        $hostelID = $hostel['HostelID'];
     } else {
-        echo "<p>No hostels available.</p>";
+        echo "<p>No more hostels available.</p>";
         return;
     }
 
-    // Retrieve rooms for the first hostel only
+    // Retrieve rooms for the selected hostel
     $sql = "SELECT Rooms.RoomID, Rooms.RoomNumber, Rooms.Capacity, Rooms.RoomImage, 
                    Hostels.HostelName
             FROM Rooms
@@ -89,7 +92,7 @@ function displayRooms() {
             </div>';
         }
     } else {
-        echo "<p>No rooms available in the first hostel.</p>";
+        echo "<p>No rooms available in the selected hostel.</p>";
     }
 
     $conn->close();
