@@ -199,7 +199,7 @@ $roomDetails = getRoomDetails($userId);
                     </span>
                 </div>
                 <div class="view-button">
-                    <a href="roommates.php" class="view-btn">View</a>
+                    <a href="roomates.php" class="view-btn">View</a>
                 </div>
             </div>
         </div>
