@@ -55,4 +55,26 @@ function getUserPreferences($userId) {
     ];
 }
 
+function getRoomDetails($userId) {
+    global $conn;
+
+    // Query to get the room details
+    $query = "
+        SELECT h.HostelName, r.RoomNumber, COUNT(b.UserID) AS NumberOfRoommates
+        FROM Bookings b
+        JOIN Rooms r ON b.RoomID = r.RoomID
+        JOIN Hostels h ON r.HostelID = h.HostelID
+        WHERE b.UserID = ?
+        GROUP BY r.RoomID, h.HostelName, r.RoomNumber
+    ";
+
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    return $result->fetch_assoc();
+}
+
+
 ?>
