@@ -78,19 +78,29 @@ function getRoomDetails($userId) {
     return $result->fetch_assoc();
 }
 
-function getRoommatesDetails($userId) {
+
+function getRoomDetails($userId) {
     global $conn;
 
-    // Query to get the roommates of the user
+    // Query to get the room details
     $query = "
-        SELECT u.UserID, u.FirstName, u.LastName, u.Bio, u.PhoneNumber, u.ProfileImage,
-               (SELECT GROUP_CONCAT(LikeText) FROM Likes WHERE LikeID IN (SELECT LikeID FROM UserLikes WHERE UserID = u.UserID)) AS Likes,
-               (SELECT GROUP_CONCAT(DislikeText) FROM Dislikes WHERE DislikeID IN (SELECT DislikeID FROM UserDislikes WHERE UserID = u.UserID)) AS Dislikes
+        SELECT 
+            h.HostelID,
+            h.HostelName, 
+            r.RoomID,
+            r.RoomNumber, 
+            r.Capacity,
+            r.Price,
+            r.Description,
+            COUNT(DISTINCT b.UserID) AS CurrentOccupants,
+            GROUP_CONCAT(DISTINCT f.FacilityName) AS Facilities
         FROM Bookings b
         JOIN Rooms r ON b.RoomID = r.RoomID
-        JOIN Bookings br ON r.RoomID = br.RoomID AND br.UserID != b.UserID
-        JOIN Users u ON br.UserID = u.UserID
-        WHERE b.UserID = ?
+        JOIN Hostels h ON r.HostelID = h.HostelID
+        LEFT JOIN RoomFacilities rf ON r.RoomID = rf.RoomID
+        LEFT JOIN Facilities f ON rf.FacilityID = f.FacilityID
+        WHERE r.RoomID = (SELECT RoomID FROM Bookings WHERE UserID = ? LIMIT 1)
+        GROUP BY h.HostelID, h.HostelName, r.RoomID, r.RoomNumber, r.Capacity, r.Price, r.Description
     ";
 
     $stmt = $conn->prepare($query);
@@ -98,23 +108,16 @@ function getRoommatesDetails($userId) {
     $stmt->execute();
     $result = $stmt->get_result();
 
-    $roommates = [];
+    $roomDetails = $result->fetch_assoc();
 
-    while ($row = $result->fetch_assoc()) {
-        $roommates[] = [
-            'user_id' => $row['UserID'],
-            'first_name' => $row['FirstName'],
-            'last_name' => $row['LastName'],
-            'bio' => $row['Bio'],
-            'phone_number' => $row['PhoneNumber'],
-            'profile_image' => $row['ProfileImage'],
-            'likes' => explode(',', $row['Likes']),
-            'dislikes' => explode(',', $row['Dislikes'])
-        ];
+    if ($roomDetails) {
+        // Convert facilities string to array
+        $roomDetails['Facilities'] = $roomDetails['Facilities'] ? explode(',', $roomDetails['Facilities']) : [];
+        
+        // Calculate available spaces
+        $roomDetails['AvailableSpaces'] = $roomDetails['Capacity'] - $roomDetails['CurrentOccupants'];
     }
 
     $stmt->close();
-    return $roommates;
+    return $roomDetails;
 }
-
-?>

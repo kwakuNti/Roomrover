@@ -1,7 +1,6 @@
 <?php
-include "../includes/room_selection.php";
-include "../includes/checkUser.php";
-checkUserRole($conn); // Call the function to check user role
+include "../includes/room_selection_wan.php";
+// Call the function to check user role
 
 ?>
 
@@ -18,7 +17,7 @@ checkUserRole($conn); // Call the function to check user role
     <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16x16.png">
     <link rel="manifest" href="../assets/images/site.webmanifest">
-	<title>AdminSite</title>
+	<title>Hostel</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="../public/css/snackbar.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -43,7 +42,7 @@ checkUserRole($conn); // Call the function to check user role
     <div class="band">
         <h1>WANGARI MATHAI'S ROOMS</h1>
     </div>
-        <?php displayRooms(); ?>
+        <?php displayRooms(1); ?>
     </div>
 
     <script src="../public/js/roomates.js"></script>

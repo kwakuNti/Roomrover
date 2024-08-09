@@ -1,5 +1,5 @@
 <?php
-include "../includes/room_selection.php";
+include "../includes/room_selection_kofi.php";
 ?>
 
 <!DOCTYPE html>
@@ -22,14 +22,14 @@ include "../includes/room_selection.php";
 </head>
 <body>
 <?php if (isset($_GET['msg'])): ?>
-        <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
+        <!-- <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
         <script>
             window.onload = function() {
                 var snackbar = document.getElementById('snackbar');
                 snackbar.className = "show";
                 setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
             };
-        </script>
+        </script> -->
     <?php endif; ?>
     
     <!-- Snackbar for validation errors -->

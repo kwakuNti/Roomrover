@@ -1,14 +1,33 @@
 <?php
-function displayRooms()
-{
+function displayRooms($hostelOffset = 1) {
     include "../config/connection.php"; 
 
+    // Select the hostel based on the offset provided (e.g., 1 for first, 2 for second)
+    $sql = "SELECT HostelID FROM Hostels ORDER BY HostelID ASC LIMIT 1 OFFSET ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $hostelOffset);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $hostel = $result->fetch_assoc();
+        $hostelID = $hostel['HostelID'];
+    } else {
+        echo "<p>No more hostels available.</p>";
+        return;
+    }
+
+    // Retrieve rooms for the selected hostel
     $sql = "SELECT Rooms.RoomID, Rooms.RoomNumber, Rooms.Capacity, Rooms.RoomImage, 
                    Hostels.HostelName
             FROM Rooms
-            LEFT JOIN Hostels ON Rooms.HostelID = Hostels.HostelID";
+            LEFT JOIN Hostels ON Rooms.HostelID = Hostels.HostelID
+            WHERE Rooms.HostelID = ?";
 
-    $result = $conn->query($sql);
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $hostelID);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -17,6 +36,9 @@ function displayRooms()
             $roomImage = $row["RoomImage"];
             $hostelName = $row["HostelName"];
             $capacity = $row["Capacity"];
+
+            // Check if the room is available
+            $isAvailable = checkRoomAvailability($roomID, $capacity, $conn);
 
             echo '
             <div class="card">
@@ -27,7 +49,7 @@ function displayRooms()
                             <h2>' . htmlspecialchars($roomNumber) . '</h2>
                             <div class="reposition">
                                 <label for="card' . $roomID . '" class="button select-button" data-room-id="' . $roomID . '" aria-hidden="true">
-                                    Open
+                                    ' . ($isAvailable ? 'Open' : 'Not Available') . '
                                 </label>
                             </div>
                         </div>
@@ -42,7 +64,8 @@ function displayRooms()
                 $occupantSql = "SELECT CONCAT(Users.FirstName, ' ', Users.LastName) AS OccupantName 
                                 FROM Bookings 
                                 LEFT JOIN Users ON Bookings.UserID = Users.UserID 
-                                WHERE Bookings.RoomID = ? AND Bookings.SlotID = (SELECT SlotID FROM Slots WHERE RoomID = ? AND SlotNumber = ?)";
+                                WHERE Bookings.RoomID = ? AND Bookings.SlotID = 
+                                    (SELECT SlotID FROM Slots WHERE RoomID = ? AND SlotNumber = ?)";
 
                 $stmt = $conn->prepare($occupantSql);
                 $stmt->bind_param("iii", $roomID, $roomID, $slotNumber);
@@ -53,7 +76,7 @@ function displayRooms()
 
                 echo '
                 <div class="info">
-                    <a href="../actions/room_selection.php?roomID=' . htmlspecialchars($roomID) . '&slotNumber=' . htmlspecialchars($slotNumber) . '" class="button return no-underline" aria-hidden="true">'
+                    <a href="../actions/room_selection_walter.php?roomID=' . htmlspecialchars($roomID) . '&slotNumber=' . htmlspecialchars($slotNumber) . '" class="button return no-underline" aria-hidden="true">'
                     . htmlspecialchars($occupantName) .
                   '</a>
                 </div>';
@@ -69,9 +92,22 @@ function displayRooms()
             </div>';
         }
     } else {
-        echo "<p>No rooms available.</p>";
+        echo "<p>No rooms available in the selected hostel.</p>";
     }
 
     $conn->close();
+}
+
+function checkRoomAvailability($roomID, $capacity, $conn) {
+    // Check the number of available slots in the room
+    $sql = "SELECT COUNT(*) AS AvailableSlots FROM Slots WHERE RoomID = ? AND IsAvailable = TRUE";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $roomID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $availableSlots = $result->fetch_assoc()["AvailableSlots"];
+
+    // Room is unavailable if all slots are occupied, otherwise it's available
+    return $availableSlots > 0;
 }
 ?>
