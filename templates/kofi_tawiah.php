@@ -32,9 +32,6 @@ include "../includes/room_selection_kofi.php";
         </script> -->
     <?php endif; ?>
     
-    <!-- Snackbar for validation errors -->
-    <div id="snackbar" class="snackbar"></div>
-
 
 <div class="wrapper">
     <div class="band">
