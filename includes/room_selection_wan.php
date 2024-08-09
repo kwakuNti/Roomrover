@@ -3,7 +3,7 @@ function displayRooms() {
     include "../config/connection.php"; 
 
     // Select the first hostel
-    $sql = "SELECT HostelID FROM Hostels ORDER BY HostelID ASC LIMIT 1";
+    $sql = "SELECT HostelID FROM Hostels ORDER BY HostelID ASC LIMIT 2";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
