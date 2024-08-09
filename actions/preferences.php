@@ -3,7 +3,7 @@ include '../config/connection.php';
 include '../config/core.php'; // Ensure this file contains your session start and user authentication
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $userId = $_SESSION['user_id']; // Assuming the user ID is stored in session
+    $userId = $_SESSION['UserID']; // Assuming the user ID is stored in session
 
     // Get selected likes, dislikes, and knows from the form
     $likes = $_POST['likes'] ?? [];
