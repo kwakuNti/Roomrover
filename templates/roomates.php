@@ -48,7 +48,6 @@ $roomDetails = getRoomDetails($userId);
                     <span class="i"><?php echo htmlspecialchars($roomDetails['NumberOfRoommates']); ?></span>
                 </div>
                 <div>
-                    <p>Click <a href="roomate_profiles.php" class="profile-link" style="color:blue">here</a> to see roommate profiles</p>
                 </div>
             </div>
         </div>
