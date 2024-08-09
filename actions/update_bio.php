@@ -1,7 +1,7 @@
 <?php
 
 include '../config/connection.php';
-include '../config/config.php';
+include '../config/core.php';
 
 // Check if user is logged in
 checkLogin();
