@@ -96,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Profile Image Path: " . ($profileImage ?: 'NULL') . "<br>";
 
     // Update user profile
-    $query = $conn->prepare("UPDATE users SET FirstName = ?, LastName = ?, DateOfBirth = ?, Gender = ?, PhoneNumber = ?, DisabilityStatus = ?, Country = ?, ProfileImage = ? WHERE UserID = ?");
+    $query = $conn->prepare("UPDATE Users SET FirstName = ?, LastName = ?, DateOfBirth = ?, Gender = ?, PhoneNumber = ?, DisabilityStatus = ?, Country = ?, ProfileImage = ? WHERE UserID = ?");
     $query->bind_param("ssssssssi", $firstname, $lastname, $dob, $gender, $phone, $disabilityStatus,$country, $profileImage, $userId);
     
     // Debugging: Print SQL query execution status

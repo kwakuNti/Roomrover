@@ -1,7 +1,12 @@
 <?php
 include "../config/core.php";
+include "../includes/userfunctions.php";
 
 checkLogin();
+$userId = $_SESSION['UserID']; // Or however you store the logged-in user's ID
+
+$roomDetails = getRoomDetails($userId);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,19 +30,16 @@ checkLogin();
             <div class="details">
                 <div>
                     <span>Hostel name</span>
-                    <span class="i">Kofi Tawiah</span>
+                    <span class="i"><?php echo htmlspecialchars($roomDetails['HostelName']); ?></span>
                 </div>
-                <div>
-                    <span>Block name</span>
-                    <span class="i">K-block</span>
-                </div>
+               
                 <div>
                     <span>Room number</span>
-                    <span class="i">K6</span>
+                    <span class="i"><?php echo htmlspecialchars($roomDetails['RoomNumber']); ?></span>
                 </div>
                 <div>
                     <span>Number of roommates</span>
-                    <span class="i">1</span>
+                    <span class="i"><?php echo htmlspecialchars($roomDetails['NumberOfRoommates']); ?></span>
                 </div>
                 <div>
                     <p>Click <a href="roomate_profiles.php" class="profile-link" style="color:blue">here</a> to see roommate profiles</p>

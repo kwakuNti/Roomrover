@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Fetch user data
-    $query = $conn->prepare("SELECT * FROM users WHERE Email = ?");
+    $query = $conn->prepare("SELECT * FROM Users WHERE Email = ?");
     $query->bind_param("s", $email);
     $query->execute();
     $result = $query->get_result();
