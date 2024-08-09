@@ -31,9 +31,9 @@ $roommates = getRoommatesDetails($userId);
             <div class="card">
                 <input type="checkbox" id="card<?= $index + 1 ?>" class="more" aria-hidden="true">
                 <div class="content">
-                    <div class="front" style="background-image: url('../assets/images/<?= htmlspecialchars($roommate['ProfileImage']) ?>');">
+                    <div class="front" style="background-image: url('../assets/images/<?= !empty($roommate['ProfileImage']) ? htmlspecialchars($roommate['ProfileImage']) : 'default-profile.jpg' ?>');">
                         <div class="inner">
-                            <h2><?= htmlspecialchars($roommate['FirstName']) ?></h2>
+                            <h2><?= htmlspecialchars(!empty($roommate['FirstName']) ? $roommate['FirstName'] : 'No Name Available') ?></h2>
                             <div class="rating">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -49,14 +49,14 @@ $roommates = getRoommatesDetails($userId);
                     <div class="back">
                         <div class="inner">
                             <div class="info">
-                                <span><?= htmlspecialchars($roommate['RoomNumber']) ?></span>
+                                <span><?= htmlspecialchars(!empty($roommate['RoomNumber']) ? $roommate['RoomNumber'] : 'No Room Number Available') ?></span>
                                 <div class="icon">
                                     <i class="fas fa-door-open"></i>
                                     <span>Room Number</span>
                                 </div>
                             </div>
                             <div class="info">
-                                <span><?= htmlspecialchars($roommate['HostelName']) ?></span>
+                                <span><?= htmlspecialchars(!empty($roommate['HostelName']) ? $roommate['HostelName'] : 'No Hostel Name Available') ?></span>
                                 <div class="icon">
                                     <i class="fas fa-building"></i>
                                     <span>Hostel</span>
