@@ -1,5 +1,5 @@
 <?php
-include "../includes/room_selection.php";
+include "../includes/room_selection_aff.php";
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +36,7 @@ include "../includes/room_selection.php";
     <div class="band">
         <h1>EPHRIM-AMU'S ROOMS</h1>
     </div>
-        <?php displayRooms(); ?>
+        <?php displayRooms(4); ?>
     </div>
 
     <script src="../public/js/roomates.js"></script>

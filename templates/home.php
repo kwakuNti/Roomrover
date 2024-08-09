@@ -1,3 +1,18 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+include "../config/connection.php";
+include "../config/core.php";
+include "../includes/userfunctions.php";
+include "../includes/checkUser.php";
+checkUserRole($conn);
+checkLogin();
+$userId = $_SESSION['UserID']; // Or however you store the logged-in user's ID
+
+$roomDetails = getRoomDetails($userId);
+
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -55,7 +70,6 @@
                                     <ul id="navigation">
                                         <li><a class="active" href="home.php">home</a></li>
                                         <li><a href="hostels.php">hostels</a></li>
-                                        <li><a href="about.php">About</a></li>
                                         <li><a href="profile.php">Profile</a></li>
                                     </ul>
                                 </nav>
@@ -75,9 +89,7 @@
     <div id="searchResults" class="search-results"></div>
 </div>
 
-                                <div class="book_btn d-none d-lg-block">
-                                    <a class="popup-with-form" href="#test-form">Book A Room</a>
-                                </div>
+
                             </div>
                         </div>
                         <div class="col-12">
@@ -152,16 +164,16 @@
     <div class="room-details">
         <div class="room-number">
             <span class="label">Room Number</span>
-            <span class="value">A1</span>
-        </div>
+            <span class="i"><?php echo htmlspecialchars($roomDetails['RoomNumber']); ?></span>
+            </div>
         <div class="room-type">
-            <span class="label">Room Type</span>
-            <span class="value">6-bed mixed dorm</span>
-        </div>
+            <span class="label">Hostel name</span>
+            <span class="i"><?php echo htmlspecialchars($roomDetails['HostelName']); ?></span>
+            </div>
         <div class="roommates">
-            <span class="label">Roommates</span>
-            <span class="value">4 roommates</span>
-        </div>
+            <span class="label">Room memebers</span>
+            <span class="i"><?php echo htmlspecialchars($roomDetails['NumberOfRoommates']); ?></span>
+            </div>
         <div class="view-button">
         <a href="roomates.php" class="view-btn">View</a>
         </div>

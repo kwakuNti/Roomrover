@@ -3,14 +3,7 @@
 include "../config/connection.php";
 include "../config/core.php";
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 
-if (!isset($_SESSION['UserID'])) {
-    header("Location: ../templates/login.php?msg=Please log in first.");
-    exit();
-}
 
 $userID = $_SESSION['UserID'];
 $roomID = isset($_GET['roomID']) ? intval($_GET['roomID']) : 0;
@@ -46,7 +39,7 @@ if ($result->num_rows > 0) {
 // Ensure the number of users is valid (1, 2, or 4)
 $totalUsers = count($otherUserIDs) + 1; // +1 for the current user
 if ($totalUsers != 1 && $totalUsers != 2 && $totalUsers != 4) {
-    header("Location: ../templates/kofi_tawiah.php?msg=Invalid number of users for booking.");
+    header("Location: ../templates/hostel_2c.php?msg=Invalid number of users for booking.");
     exit();
 }
 
@@ -152,14 +145,15 @@ try {
     // Commit transaction
     $conn->commit();
 
-    header("Location: ../templates/kofi_tawiah.php?msg=You have successfully booked the room.");
+    header("Location: ../templates/hostel_2c.php?msg=You have successfully booked the room.");
     exit();
 } catch (Exception $e) {
     // Rollback transaction if something goes wrong
     $conn->rollback();
-    header("Location: ../templates/kofi_tawiah.php?msg=" . urlencode($e->getMessage()));
+    header("Location: ../templates/hostel_2c.php?msg=" . urlencode($e->getMessage()));
     exit();
 }
 
 $stmt->close();
 $conn->close();
+?>

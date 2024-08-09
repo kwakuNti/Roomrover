@@ -1,6 +1,8 @@
 <?php
 include "../config/core.php";
 include "../includes/userfunctions.php";
+include "../includes/checkUser.php";
+checkUserRole($conn);
 
 checkLogin();
 $userId = $_SESSION['UserID']; // Or however you store the logged-in user's ID
@@ -38,7 +40,7 @@ $roomDetails = getRoomDetails($userId);
                     <span class="i"><?php echo htmlspecialchars($roomDetails['RoomNumber']); ?></span>
                 </div>
                 <div>
-                    <span>Number of roommates</span>
+                    <span>Number of room members</span>
                     <span class="i"><?php echo htmlspecialchars($roomDetails['NumberOfRoommates']); ?></span>
                 </div>
                 <div>

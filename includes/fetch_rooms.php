@@ -6,7 +6,7 @@ if (isset($_POST['hostel_id'])) {
     $hostelId = $_POST['hostel_id'];
 
     // Query to select RoomID and RoomNumber based on HostelID
-    $query = "SELECT RoomID, RoomNumber FROM rooms WHERE HostelID = ?";
+    $query = "SELECT RoomID, RoomNumber FROM Rooms WHERE HostelID = ?";
     
     // Prepare the statement to prevent SQL injection
     $stmt = $conn->prepare($query);

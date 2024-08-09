@@ -1,6 +1,7 @@
 <?php
 include "../config/core.php";
-
+include "../includes/checkUser.php";
+checkUserRole($conn);
 checkLogin();
 ?>
 <!doctype html>
@@ -9,7 +10,7 @@ checkLogin();
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Montana</title>
+    <title>Rooms</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
