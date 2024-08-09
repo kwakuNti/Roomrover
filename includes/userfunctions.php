@@ -78,29 +78,73 @@ function getRoomDetails($userId) {
     return $result->fetch_assoc();
 }
 
+
 function getRoommatesDetails($userId) {
     global $conn;
 
-    // Query to get the roommates of the user based on pairings
-    $query = "
-        SELECT u.UserID, u.FirstName, u.LastName, u.Bio, u.PhoneNumber, u.ProfileImage,
-               (SELECT GROUP_CONCAT(l.LikeText) FROM Likes l
-                JOIN UserLikes ul ON l.LikeID = ul.LikeID
-                WHERE ul.UserID = u.UserID) AS Likes,
-               (SELECT GROUP_CONCAT(d.DislikeText) FROM Dislikes d
-                JOIN UserDislikes ud ON d.DislikeID = ud.DislikeID
-                WHERE ud.UserID = u.UserID) AS Dislikes
+    // First, get the PairingID(s) for the current user
+    $pairingQuery = "
+        SELECT p.PairingID
         FROM PairingMembers pm
-        JOIN Users u ON pm.UserID = u.UserID
         JOIN Pairings p ON pm.PairingID = p.PairingID
-        WHERE p.PairingID IN (
-            SELECT PairingID FROM PairingMembers WHERE UserID = ?
-        )
-        AND u.UserID != ?
+        WHERE pm.UserID = ?
+    ";
+
+    $pairingStmt = $conn->prepare($pairingQuery);
+    $pairingStmt->bind_param("i", $userId);
+    $pairingStmt->execute();
+    $pairingResult = $pairingStmt->get_result();
+    
+    $pairingIDs = [];
+    while ($row = $pairingResult->fetch_assoc()) {
+        $pairingIDs[] = $row['PairingID'];
+    }
+
+    $pairingStmt->close();
+
+    if (empty($pairingIDs)) {
+        return []; // No pairings found for the user
+    }
+
+    // Convert the array to a comma-separated string for the IN clause
+    $pairingIDsStr = implode(',', array_map('intval', $pairingIDs));
+
+    // Fetch the details for all users in the same pairings
+    $query = "
+        SELECT 
+            p.PairingID,
+            u.UserID,
+            u.FirstName,
+            u.LastName,
+            u.Bio,
+            u.PhoneNumber,
+            u.ProfileImage,
+            (
+                SELECT GROUP_CONCAT(l.LikeText) 
+                FROM Likes l 
+                JOIN UserLikes ul ON l.LikeID = ul.LikeID 
+                WHERE ul.UserID = u.UserID
+            ) AS Likes,
+            (
+                SELECT GROUP_CONCAT(d.DislikeText) 
+                FROM Dislikes d 
+                JOIN UserDislikes ud ON d.DislikeID = ud.DislikeID 
+                WHERE ud.UserID = u.UserID
+            ) AS Dislikes
+        FROM 
+            Pairings p
+        JOIN 
+            PairingMembers pm ON p.PairingID = pm.PairingID
+        JOIN 
+            Users u ON pm.UserID = u.UserID
+        WHERE 
+            p.PairingID IN ($pairingIDsStr)
+            AND u.UserID != ?
+        LIMIT 0, 25
     ";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ii", $userId, $userId); // Bind the user ID for the current user and the roommate check
+    $stmt->bind_param("i", $userId); // Bind the user ID to exclude the current user
     $stmt->execute();
     $result = $stmt->get_result();
 
