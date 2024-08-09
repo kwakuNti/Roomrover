@@ -62,9 +62,7 @@ $roommates = getRoommatesDetails($userId);
                                     <span>Hostel</span>
                                 </div>
                             </div>
-                            <div class="description">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae, accusamus.</p>
-                            </div>
+                            
                             <label for="card<?= $index + 1 ?>" class="button return" aria-hidden="true">
                                 <i class="fas fa-arrow-left">Back</i>
                             </label>
