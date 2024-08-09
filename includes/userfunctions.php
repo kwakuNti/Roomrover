@@ -81,20 +81,26 @@ function getRoomDetails($userId) {
 function getRoommatesDetails($userId) {
     global $conn;
 
-    // Query to get the roommates of the user
+    // Query to get the roommates of the user based on pairings
     $query = "
         SELECT u.UserID, u.FirstName, u.LastName, u.Bio, u.PhoneNumber, u.ProfileImage,
-               (SELECT GROUP_CONCAT(LikeText) FROM Likes WHERE LikeID IN (SELECT LikeID FROM UserLikes WHERE UserID = u.UserID)) AS Likes,
-               (SELECT GROUP_CONCAT(DislikeText) FROM Dislikes WHERE DislikeID IN (SELECT DislikeID FROM UserDislikes WHERE UserID = u.UserID)) AS Dislikes
-        FROM Bookings b
-        JOIN Rooms r ON b.RoomID = r.RoomID
-        JOIN Bookings br ON r.RoomID = br.RoomID AND br.UserID != b.UserID
-        JOIN Users u ON br.UserID = u.UserID
-        WHERE b.UserID = ?
+               (SELECT GROUP_CONCAT(l.LikeText) FROM Likes l
+                JOIN UserLikes ul ON l.LikeID = ul.LikeID
+                WHERE ul.UserID = u.UserID) AS Likes,
+               (SELECT GROUP_CONCAT(d.DislikeText) FROM Dislikes d
+                JOIN UserDislikes ud ON d.DislikeID = ud.DislikeID
+                WHERE ud.UserID = u.UserID) AS Dislikes
+        FROM PairingMembers pm
+        JOIN Users u ON pm.UserID = u.UserID
+        JOIN Pairings p ON pm.PairingID = p.PairingID
+        WHERE p.PairingID IN (
+            SELECT PairingID FROM PairingMembers WHERE UserID = ?
+        )
+        AND u.UserID != ?
     ";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $userId);
+    $stmt->bind_param("ii", $userId, $userId); // Bind the user ID for the current user and the roommate check
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -116,5 +122,3 @@ function getRoommatesDetails($userId) {
     $stmt->close();
     return $roommates;
 }
-
-?>
