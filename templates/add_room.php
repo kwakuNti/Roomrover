@@ -155,7 +155,7 @@
                             <?php
                             // Fetch hostels for the room form from the database
                             include '../config/connection.php';
-                            $query = "SELECT HostelID, HostelName FROM hostels";
+                            $query = "SELECT HostelID, HostelName FROM Hostels";
                             $result = mysqli_query($conn, $query);
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo "<option value='{$row['HostelID']}'>{$row['HostelName']}</option>";

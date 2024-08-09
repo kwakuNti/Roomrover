@@ -25,6 +25,29 @@
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/slicknav.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* Add this to your existing CSS file */
+.suggest_roommate_button {
+    text-align: center;
+    margin: 50px 0; /* Adjust spacing as needed */
+}
+
+.suggest_button {
+    background-color: #6d1f2a; /* Wine color */
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.suggest_button:hover {
+    background-color: #5b1622; /* Darker shade of wine color for hover effect */
+}
+
+    </style>
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 </head>
 <?php if (isset($_GET['msg'])): ?>
@@ -166,10 +189,19 @@
         <a href="roomates.php" class="view-btn">View</a>
         </div>
     </div>
+
+  
+
 </div>
 
         </div>
     </div>
+
+
+    <div class="suggest_roommate_button">
+        <a href="suggestionPage.php" class="suggest_button">Suggest a Roommate</a>
+    </div>
+
     <!-- features_room_startt -->
     <div class="features_room">
         <div class="container">
