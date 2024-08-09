@@ -5,7 +5,7 @@ include '../includes/notifications.php';
 // Fetch user details
 $userDetails = getUserDetails($userId);
 checkLogin();
-include "../includes/checkUser.php.php";
+include "../includes/checkUser.php";
 checkUserRole($conn);
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 include "../config/core.php";
 include "../includes/userfunctions.php";
-include "../includes/checkUser.php.php";
+include "../includes/checkUser.php";
 checkUserRole($conn);
 
 checkLogin();
