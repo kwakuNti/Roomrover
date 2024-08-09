@@ -23,21 +23,11 @@ $conn->close();
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 	<link rel="stylesheet" href="../public/css/admin.css">
-	<link rel="stylesheet" href="../public/css/snackbar.css">
 
 	<title>AdminSite</title>
 </head>
 <body>
-<?php if (isset($_GET['msg'])): ?>
-        <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
-        <script>
-            window.onload = function() {
-                var snackbar = document.getElementById('snackbar');
-                snackbar.className = "show";
-                setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
-            };
-        </script>
-    <?php endif; ?>
+
 	
 	<!-- SIDEBAR -->
 	<section id="sidebar">
