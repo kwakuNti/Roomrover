@@ -11,7 +11,7 @@ include "../includes/room_selection.php";
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
     <link href="https://fonts.googleapis.com/css2?family=Times New Roman:wght@400;700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="../public/css/roomates.css">
-	<title>AdminSite</title>
+	<title>Hostels</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="../public/css/snackbar.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>

@@ -10,7 +10,6 @@
         }
     }
 
-    
 
 // Check if UserID is set in the session
 

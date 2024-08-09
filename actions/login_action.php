@@ -1,6 +1,5 @@
 <?php
 include '../config/core.php';
-
 include '../config/connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -29,13 +28,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } else {
                 echo "Failed to set Session UserID<br>";
             }
-            // Check if other user details are set to determine if it's a new user
-            if (empty($user['FirstName']) || empty($user['LastName']) || empty($user['DateOfBirth'])) {
-                // Redirect to preferences page for new user
-                header("Location: ../templates/preferences.php?msg=Please set your preferences.");
+
+            // Check if the user is an admin
+            if ($user['UserType'] == '1') {
+                // Redirect to admin page
+                header("Location: ../templates/admin.php?msg=Welcome, Admin.");
             } else {
-                // Redirect to home page for existing user
-                header("Location: ../templates/home.php?msg=Login successful.");
+                // Check if other user details are set to determine if it's a new user
+                if (empty($user['FirstName']) || empty($user['LastName']) || empty($user['DateOfBirth'])) {
+                    // Redirect to preferences page for new user
+                    header("Location: ../templates/preferences.php?msg=Please set your preferences.");
+                } else {
+                    // Redirect to home page for existing user
+                    header("Location: ../templates/home.php?msg=Login successful.");
+                }
             }
         } else {
             header("Location: ../templates/login.php?msg=Invalid password.");
@@ -45,4 +51,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     exit();
 }
-
