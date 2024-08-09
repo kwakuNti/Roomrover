@@ -1,6 +1,8 @@
 <?php
 include "../config/core.php";
 include "../includes/userfunctions.php";
+include "../includes/checkUser.php.php";
+checkUserRole($conn);
 
 checkLogin();
 $userId = $_SESSION['UserID']; // Or however you store the logged-in user's ID

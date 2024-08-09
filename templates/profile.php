@@ -3,10 +3,11 @@ include "../config/core.php";
 include "../config/connection.php";
 include '../includes/notifications.php';
 // Fetch user details
-
-checkLogin();
-
 $userDetails = getUserDetails($userId);
+checkLogin();
+include "../includes/checkUser.php.php";
+checkUserRole($conn);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

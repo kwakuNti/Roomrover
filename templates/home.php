@@ -1,7 +1,8 @@
 <?php
 include "../config/core.php";
 include "../includes/userfunctions.php";
-
+include "../includes/checkUser.php.php";
+checkUserRole($conn);
 checkLogin();
 $userId = $_SESSION['UserID']; // Or however you store the logged-in user's ID
 
@@ -84,9 +85,7 @@ $roomDetails = getRoomDetails($userId);
     <div id="searchResults" class="search-results"></div>
 </div>
 
-                                <div class="book_btn d-none d-lg-block">
-                                    <a class="popup-with-form" href="#test-form">Book A Room</a>
-                                </div>
+
                             </div>
                         </div>
                         <div class="col-12">

@@ -1,5 +1,8 @@
 <?php
 include "../includes/room_selection.php";
+include "../includes/checkUser.php";
+checkUserRole($conn); // Call the function to check user role
+
 ?>
 
 <!DOCTYPE html>

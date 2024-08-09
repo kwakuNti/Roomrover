@@ -1,6 +1,8 @@
 <?php
 include '../config/connection.php';
 $userId = $_SESSION['UserID'];
+
+
 // user_functions.php
 function getUserDetails($userId) {
     global $conn; // Use the existing database connection

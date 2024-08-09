@@ -1,6 +1,7 @@
 <?php
 include "../config/core.php";
-
+include "../includes/checkUser.php.php";
+checkUserRole($conn);
 checkLogin();
 ?>
 <!DOCTYPE html>
