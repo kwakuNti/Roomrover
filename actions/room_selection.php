@@ -629,6 +629,8 @@ try {
 
     } else {
         echo "Error: Not enough available slots in the room.";
+        $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '../templates/default.php';
+        header("Location: $previousPage?msg=Unsuccess");
         $conn->rollback();
     }
 } catch (Exception $e) {
