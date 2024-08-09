@@ -1,5 +1,5 @@
 <?php
-$db_server = "16.171.150.101";
+$db_server = "localhost";
 $db_user = "root";
 $db_password = "Vcnm1H&w";
 $db_name = "room_rover";
