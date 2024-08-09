@@ -38,7 +38,7 @@ $roomDetails = getRoomDetails($userId);
                     <span class="i"><?php echo htmlspecialchars($roomDetails['RoomNumber']); ?></span>
                 </div>
                 <div>
-                    <span>Number of roommates</span>
+                    <span>Number of room members</span>
                     <span class="i"><?php echo htmlspecialchars($roomDetails['NumberOfRoommates']); ?></span>
                 </div>
                 <div>
