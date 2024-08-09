@@ -159,29 +159,53 @@ $roomDetails = getRoomDetails($userId);
 
     <!-- about_area_start -->
     <div class="about_area">
-        <div class="container">
+    <div class="container">
         <div class="room-info">
-    <div class="room-details">
-        <div class="room-number">
-            <span class="label">Room Number</span>
-            <span class="i"><?php echo htmlspecialchars($roomDetails['RoomNumber']); ?></span>
+            <div class="room-details">
+                <div class="room-number">
+                    <span class="label">Room Number</span>
+                    <span class="i">
+                        <?php 
+                        if (!empty($roomDetails['RoomNumber'])) {
+                            echo htmlspecialchars($roomDetails['RoomNumber']);
+                        } else {
+                            echo 'No room number available';
+                        }
+                        ?>
+                    </span>
+                </div>
+                <div class="room-type">
+                    <span class="label">Hostel Name</span>
+                    <span class="i">
+                        <?php 
+                        if (!empty($roomDetails['HostelName'])) {
+                            echo htmlspecialchars($roomDetails['HostelName']);
+                        } else {
+                            echo 'No hostel name available';
+                        }
+                        ?>
+                    </span>
+                </div>
+                <div class="roommates">
+                    <span class="label">Room Members</span>
+                    <span class="i">
+                        <?php 
+                        if (!empty($roomDetails['NumberOfRoommates'])) {
+                            echo htmlspecialchars($roomDetails['NumberOfRoommates']);
+                        } else {
+                            echo 'No room members information available';
+                        }
+                        ?>
+                    </span>
+                </div>
+                <div class="view-button">
+                    <a href="roommates.php" class="view-btn">View</a>
+                </div>
             </div>
-        <div class="room-type">
-            <span class="label">Hostel name</span>
-            <span class="i"><?php echo htmlspecialchars($roomDetails['HostelName']); ?></span>
-            </div>
-        <div class="roommates">
-            <span class="label">Room memebers</span>
-            <span class="i"><?php echo htmlspecialchars($roomDetails['NumberOfRoommates']); ?></span>
-            </div>
-        <div class="view-button">
-        <a href="roomates.php" class="view-btn">View</a>
         </div>
     </div>
 </div>
 
-        </div>
-    </div>
     <!-- form itself end -->
 
     <!-- JS here -->
