@@ -1,5 +1,5 @@
 <?php
-// Include configuration and start session
+// ../ACTIONS/ROOM_SELECTION.PHP
 include "../config/connection.php";
 include "../config/core.php";
 
@@ -106,22 +106,18 @@ try {
         $stmt->bind_param("i", $slots[0]);
         $stmt->execute();
 
-        // Insert new booking for the paired user, if exists
-        if ($otherUserID) {
-            $sql = "INSERT INTO Bookings (UserID, RoomID, SlotID, BookingDate) VALUES (?, ?, ?, CURDATE())";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("iii", $otherUserID, $roomID, $slots[1]);
-            $stmt->execute();
+        // Commit transaction
+        $conn->commit();
+        echo "Success: Both you and your pair have been moved to the new room.";
+        // header("Location: ../templates/kofi_tawiah.php?msg=Success");
+        $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '../templates/default.php';
+        header("Location: $previousPage?msg=Success");
 
-            $sql = "UPDATE Slots SET IsAvailable = FALSE WHERE SlotID = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("i", $slots[1]);
-            $stmt->execute();
-        }
-
-        echo "Success: You and your pair (if any) have been added to the room.";
     } else {
-        echo "Error: Not enough available slots in the selected room.";
+        echo "Error: Not enough available slots in the room.";
+        $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '../templates/default.php';
+        header("Location: $previousPage?msg=Unsuccess");
+        $conn->rollback();
     }
 
     // Commit transaction
@@ -129,7 +125,12 @@ try {
 } catch (Exception $e) {
     // Rollback transaction if something goes wrong
     $conn->rollback();
-    echo "Error: " . $e->getMessage();
+    echo "Error: Could not complete the room switch. Please try again.";
+    // header("Location: ../templates/kofi_tawiah.php?msg=Unsuccess");
+
+    $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '../templates/default.php';
+    header("Location: $previousPage?msg=Unsuccess");
+
 }
 
 $stmt->close();
