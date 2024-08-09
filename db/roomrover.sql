@@ -26,16 +26,18 @@ CREATE TABLE Users (
 -- Hostels table to store hostel information
 CREATE TABLE Hostels (
     HostelID INT PRIMARY KEY AUTO_INCREMENT,
-    HostelName VARCHAR(50) UNIQUE
+    HostelName VARCHAR(50) UNIQUE,
+    Available BOOLEAN DEFAULT TRUE -- Added Available column
+
 );
 
--- Rooms table to store room information within each hostel
 CREATE TABLE Rooms (
     RoomID INT PRIMARY KEY AUTO_INCREMENT,
     HostelID INT,
     RoomNumber VARCHAR(10),
     Capacity INT,
     RoomImage VARCHAR(255),
+    Available BOOLEAN DEFAULT TRUE,
     FOREIGN KEY (HostelID) REFERENCES Hostels(HostelID)
 );
 
@@ -153,7 +155,7 @@ CREATE TABLE UserKnows (
     FOREIGN KEY (KnowID) REFERENCES Knows(KnowID)
 );
 
--- Insert initial data into Hostels table
+
 INSERT INTO Hostels (HostelName) VALUES
 ('Kofi Tawiah'),
 ('Wangari Mathai'),
@@ -164,19 +166,19 @@ INSERT INTO Hostels (HostelName) VALUES
 ('Hostel 2D');
 
 -- Insert initial data into Rooms table
-INSERT INTO Rooms (HostelID, RoomNumber, Capacity, RoomImage) VALUES
-(1, '101', 4, '../templates/img/banner/banner.png'),
-(1, '102', 2, '../templates/img/banner/banner.png'),
-(1, '103', 4, '../templates/img/banner/banner.png'),
-(2, '201', 2, '../templates/img/banner/banner.png'),
-(2, '202', 4, '../templates/img/banner/banner.png'),
-(2, '203', 2, '../templates/img/banner/banner.png'),
-(3, '301', 4, '../templates/img/banner/banner.png'),
-(3, '302', 2, '../templates/img/banner/banner.png'),
-(3, '303', 4, '../templates/img/banner/banner.png'),
-(4, '401', 2, '../templates/img/banner/banner.png'),
-(4, '402', 4, '../templates/img/banner/banner.png'),
-(4, '403', 2, '../templates/img/banner/banner.png');
+INSERT INTO Rooms (HostelID, RoomNumber, Capacity, RoomImage, Available) VALUES
+(1, '101', 4, '../templates/img/banner/banner.png', TRUE),
+(1, '102', 2, '../templates/img/banner/banner.png', TRUE),
+(1, '103', 4, '../templates/img/banner/banner.png', TRUE),
+(2, '201', 2, '../templates/img/banner/banner.png', TRUE),
+(2, '202', 4, '../templates/img/banner/banner.png', TRUE),
+(2, '203', 2, '../templates/img/banner/banner.png', TRUE),
+(3, '301', 4, '../templates/img/banner/banner.png', TRUE),
+(3, '302', 2, '../templates/img/banner/banner.png', TRUE),
+(3, '303', 4, '../templates/img/banner/banner.png', TRUE),
+(4, '401', 2, '../templates/img/banner/banner.png', TRUE),
+(4, '402', 4, '../templates/img/banner/banner.png', TRUE),
+(4, '403', 2, '../templates/img/banner/banner.png', TRUE);
 
 -- Insert initial data into Slots table
 INSERT INTO Slots (RoomID, SlotNumber, IsAvailable) VALUES
@@ -202,3 +204,45 @@ INSERT INTO Slots (RoomID, SlotNumber, IsAvailable) VALUES
 (7, 2, TRUE),
 (7, 3, TRUE),
 (7, 4, TRUE);
+
+
+-- Insert initial data into Likes table
+INSERT INTO Likes (LikeText) VALUES
+('Clean Room'),
+('Organized Space'),
+('Quiet Roommate'),
+('Shared Chores'),
+('Natural Light'),
+('Personal Space'),
+('Good Ventilation'),
+('Minimalistic Decor'),
+('Morning Person'),
+('Evening Person');
+
+
+-- Insert initial data into Dislikes table
+INSERT INTO Dislikes (DislikeText) VALUES
+('Messy Roommate'),
+('Late-night Noise'),
+('Overcrowded Space'),
+('Strong Odors'),
+('Cluttered Room'),
+('Loud Music'),
+('Noisy Neighbors'),
+('Frequent Visitors'),
+('Poor Ventilation'),
+('Overuse of Shared Items');
+
+
+-- Insert initial data into Knows table
+INSERT INTO Knows (KnowText) VALUES
+('Differently Abled'),
+('First Year'),
+('Second Year'),
+('Third Year'),
+('Fourth Year'),
+('Early Bird'),
+('Night Owl'),
+('Needs Quiet'),
+('Roommate Preferences'),
+('Study Habits');

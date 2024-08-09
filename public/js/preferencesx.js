@@ -43,14 +43,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (knows.length < 2) message += 'Select at least two knows. ';
             }
             // Redirect to the same page with feedback message in URL
-            window.location.href = `preferences.php?msg=${encodeURIComponent(message)}`;
+            window.location.href = `preferencesx.php?msg=${encodeURIComponent(message)}`;
             return;
         }
 
         // Create a form and submit it
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = '../actions/preferences.php'; // The PHP file handling the submission
+        form.action = '../actions/preferencesx.php'; // The PHP file handling the submission
 
         const inputLikes = document.createElement('input');
         inputLikes.type = 'hidden';

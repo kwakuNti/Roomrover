@@ -67,6 +67,69 @@
 			background-color: #4caf50;
 			color: white;
 		}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000; /* Ensures modal is on top of other elements */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Slightly darker background */
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto; /* Centered horizontally */
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%; /* Adjust width as needed */
+    max-width: 600px; /* Limit maximum width for large screens */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000; /* Change color on hover/focus */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* Ensures padding does not affect width */
+}
+
+button.block-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.block-btn:hover {
+    background-color: #e60000; /* Darker shade on hover */
+}
+
+
 	</style>
 </head>
 <body>
@@ -150,7 +213,8 @@
 
             <!-- Example Content -->
             <div id="content-list">
-                <div class="content-item">
+				<?php include '../actions/fetch_users.php'; ?>
+                <!-- <div class="content-item">
                     <span class="item-name">Dashboard Overview</span>
                     <button class="block-btn">Block</button>
                     <button class="unblock-btn">Unblock</button>
@@ -179,31 +243,107 @@
                     <span class="item-name">System Settings</span>
                     <button class="block-btn">Block</button>
                     <button class="unblock-btn">Unblock</button>
-                </div>
+                </div> -->
             </div>
         </main>
 
-	<script>
-		function searchContent() {
-			// Declare variables
-			var input, filter, contentList, items, item, i, txtValue;
-			input = document.getElementById('search-bar');
-			filter = input.value.toLowerCase();
-			contentList = document.getElementById('content-list');
-			items = contentList.getElementsByClassName('content-item');
+		<!-- Block User Modal -->
+			<div id="block-modal" class="modal">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<h2>Block User</h2>
+					<form id="block-form">
+						<input type="hidden" id="block-user-id">
+						<textarea id="block-reason" placeholder="Enter the reason for blocking..." required></textarea>
+						<button type="submit" class="block-btn">Submit</button>
+					</form>
+				</div>
+			</div>
 
-			// Loop through all content items and hide those that don't match the search query
-			for (i = 0; i < items.length; i++) {
-				item = items[i].getElementsByClassName('item-name')[0];
-				txtValue = item.textContent || item.innerText;
-				if (txtValue.toLowerCase().indexOf(filter) > -1) {
-					items[i].style.display = "flex";
-				} else {
-					items[i].style.display = "none";
+
+		<script>
+			function searchContent() {
+				// Declare variables
+				var input, filter, contentList, items, item, i, txtValue;
+				input = document.getElementById('search-bar');
+				filter = input.value.toLowerCase();
+				contentList = document.getElementById('content-list');
+				items = contentList.getElementsByClassName('content-item');
+
+				// Loop through all content items and hide those that don't match the search query
+				for (i = 0; i < items.length; i++) {
+					item = items[i].getElementsByClassName('item-name')[0];
+					txtValue = item.textContent || item.innerText;
+					if (txtValue.toLowerCase().indexOf(filter) > -1) {
+						items[i].style.display = "flex";
+					} else {
+						items[i].style.display = "none";
+					}
 				}
 			}
-		}
-	</script>
+		</script>
+
+<script>
+    function openBlockModal(userId) {
+        document.getElementById('block-user-id').value = userId;
+        document.getElementById('block-modal').style.display = 'block';
+    }
+
+    function closeBlockModal() {
+        document.getElementById('block-modal').style.display = 'none';
+    }
+
+    document.querySelector('.modal .close').onclick = closeBlockModal;
+
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('block-modal')) {
+            closeBlockModal();
+        }
+    }
+
+    document.getElementById('block-form').onsubmit = function(event) {
+        event.preventDefault();
+
+        var userId = document.getElementById('block-user-id').value;
+        var reason = document.getElementById('block-reason').value;
+
+        if (confirm('Are you sure you want to block this user?')) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '../actions/block_user.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    alert('User has been blocked successfully.');
+                    closeBlockModal();
+                    // Optionally, refresh the user list or update the UI
+                } else {
+                    alert('Error blocking the user.');
+                }
+            };
+            xhr.send('user_id=' + encodeURIComponent(userId) + '&reason=' + encodeURIComponent(reason));
+        }
+    };
+</script>
+
+	<Script>
+		function unblockUser(userId) {
+			if (confirm('Are you sure you want to unblock this user?')) {
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', '../actions/unblock_user.php', true);
+				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xhr.onload = function() {
+					if (xhr.status === 200) {
+						alert('User has been unblocked successfully.');
+						// Optionally, refresh the user list or update the UI
+					} else {
+						alert('Error unblocking the user.');
+					}
+				};
+				xhr.send('user_id=' + encodeURIComponent(userId));
+			}
+		}	
+	</Script>
+
 
     </body>
 </html>

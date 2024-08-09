@@ -79,6 +79,6 @@ $knows = fetchPreferences('Knows', 'KnowText');
     <div id="knowsButton" class="toggle-circle"></div>
     <div id="doneButton" class="hidden">Done</div>
 </div>
-<script src="../public/js/preferences.js"></script>
+<script src="../public/js/preferencesx.js"></script>
 </body>
 </html>
