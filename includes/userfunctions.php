@@ -1,6 +1,8 @@
 <?php
 include '../config/connection.php';
 $userId = $_SESSION['UserID'];
+
+
 // user_functions.php
 function getUserDetails($userId) {
     global $conn; // Use the existing database connection
@@ -76,5 +78,43 @@ function getRoomDetails($userId) {
     return $result->fetch_assoc();
 }
 
+function getRoommatesDetails($userId) {
+    global $conn;
+
+    // Query to get the roommates of the user
+    $query = "
+        SELECT u.UserID, u.FirstName, u.LastName, u.Bio, u.PhoneNumber, u.ProfileImage,
+               (SELECT GROUP_CONCAT(LikeText) FROM Likes WHERE LikeID IN (SELECT LikeID FROM UserLikes WHERE UserID = u.UserID)) AS Likes,
+               (SELECT GROUP_CONCAT(DislikeText) FROM Dislikes WHERE DislikeID IN (SELECT DislikeID FROM UserDislikes WHERE UserID = u.UserID)) AS Dislikes
+        FROM Bookings b
+        JOIN Rooms r ON b.RoomID = r.RoomID
+        JOIN Bookings br ON r.RoomID = br.RoomID AND br.UserID != b.UserID
+        JOIN Users u ON br.UserID = u.UserID
+        WHERE b.UserID = ?
+    ";
+
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $roommates = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $roommates[] = [
+            'user_id' => $row['UserID'],
+            'first_name' => $row['FirstName'],
+            'last_name' => $row['LastName'],
+            'bio' => $row['Bio'],
+            'phone_number' => $row['PhoneNumber'],
+            'profile_image' => $row['ProfileImage'],
+            'likes' => explode(',', $row['Likes']),
+            'dislikes' => explode(',', $row['Dislikes'])
+        ];
+    }
+
+    $stmt->close();
+    return $roommates;
+}
 
 ?>

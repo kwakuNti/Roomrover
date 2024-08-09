@@ -1,3 +1,18 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+include "../config/connection.php";
+include "../config/core.php";
+include "../includes/userfunctions.php";
+include "../includes/checkUser.php";
+checkUserRole($conn);
+checkLogin();
+$userId = $_SESSION['UserID']; // Or however you store the logged-in user's ID
+
+$roomDetails = getRoomDetails($userId);
+
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -25,29 +40,6 @@
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/slicknav.css">
     <link rel="stylesheet" href="css/style.css">
-
-    <style>
-        /* Add this to your existing CSS file */
-.suggest_roommate_button {
-    text-align: center;
-    margin: 50px 0; /* Adjust spacing as needed */
-}
-
-.suggest_button {
-    background-color: #6d1f2a; /* Wine color */
-    color: white;
-    padding: 15px 30px;
-    text-decoration: none;
-    font-size: 18px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.suggest_button:hover {
-    background-color: #5b1622; /* Darker shade of wine color for hover effect */
-}
-
-    </style>
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
 </head>
 <?php if (isset($_GET['msg'])): ?>
@@ -78,7 +70,6 @@
                                     <ul id="navigation">
                                         <li><a class="active" href="home.php">home</a></li>
                                         <li><a href="hostels.php">hostels</a></li>
-                                        <li><a href="about.php">About</a></li>
                                         <li><a href="profile.php">Profile</a></li>
                                     </ul>
                                 </nav>
@@ -98,9 +89,7 @@
     <div id="searchResults" class="search-results"></div>
 </div>
 
-                                <div class="book_btn d-none d-lg-block">
-                                    <a class="popup-with-form" href="#test-form">Book A Room</a>
-                                </div>
+
                             </div>
                         </div>
                         <div class="col-12">
@@ -175,304 +164,24 @@
     <div class="room-details">
         <div class="room-number">
             <span class="label">Room Number</span>
-            <span class="value">A1</span>
-        </div>
+            <span class="i"><?php echo htmlspecialchars($roomDetails['RoomNumber']); ?></span>
+            </div>
         <div class="room-type">
-            <span class="label">Room Type</span>
-            <span class="value">6-bed mixed dorm</span>
-        </div>
+            <span class="label">Hostel name</span>
+            <span class="i"><?php echo htmlspecialchars($roomDetails['HostelName']); ?></span>
+            </div>
         <div class="roommates">
-            <span class="label">Roommates</span>
-            <span class="value">4 roommates</span>
-        </div>
+            <span class="label">Room memebers</span>
+            <span class="i"><?php echo htmlspecialchars($roomDetails['NumberOfRoommates']); ?></span>
+            </div>
         <div class="view-button">
         <a href="roomates.php" class="view-btn">View</a>
         </div>
     </div>
-
-  
-
 </div>
 
         </div>
     </div>
-
-
-    <div class="suggest_roommate_button">
-        <a href="suggestionPage.php" class="suggest_button">Suggest a Roommate</a>
-    </div>
-
-    <!-- features_room_startt -->
-    <div class="features_room">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="section_title text-center mb-100">
-                        <span>Featured Rooms</span>
-                        <h3>Choose Your Preferred Hostel</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="rooms_here">
-            <div class="single_rooms">
-                <div class="room_thumb">
-                    <img src="img/rooms/1.png" alt="">
-                    <div class="room_heading d-flex justify-content-between align-items-center">
-                        <div class="room_heading_inner">
-                            <span>From $250/night</span>
-                            <h3>Superior Room</h3>
-                        </div>
-                        <a href="#" class="line-button">book now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="single_rooms">
-                <div class="room_thumb">
-                    <img src="img/rooms/2.png" alt="">
-                    <div class="room_heading d-flex justify-content-between align-items-center">
-                        <div class="room_heading_inner">
-                            <span>From $250/night</span>
-                            <h3>Deluxe Room</h3>
-                        </div>
-                        <a href="#" class="line-button">book now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="single_rooms">
-                <div class="room_thumb">
-                    <img src="img/rooms/3.png" alt="">
-                    <div class="room_heading d-flex justify-content-between align-items-center">
-                        <div class="room_heading_inner">
-                            <span>From $250/night</span>
-                            <h3>Signature Room</h3>
-                        </div>
-                        <a href="#" class="line-button">book now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="single_rooms">
-                <div class="room_thumb">
-                    <img src="img/rooms/4.png" alt="">
-                    <div class="room_heading d-flex justify-content-between align-items-center">
-                        <div class="room_heading_inner">
-                            <span>From $250/night</span>
-                            <h3>Couple Room</h3>
-                        </div>
-                        <a href="#" class="line-button">book now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- features_room_end -->
-
-    <!-- forQuery_start -->
-    <div class="forQuery">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-10 offset-xl-1 col-md-12">
-                    <div class="Query_border">
-                        <div class="row align-items-center justify-content-center">
-                            <div class="col-xl-6 col-md-6">
-                                <div class="Query_text">
-                                    <p>For Reservation 0r Query?</p>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-md-6">
-                                <div class="phone_num">
-                                    <a href="#" class="mobile_no">+10 576 377 4789</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- forQuery_end-->
-
-    <!-- instragram_area_start -->
-    <div class="instragram_area">
-        <div class="single_instagram">
-            <img src="img/instragram/1.png" alt="">
-            <div class="ovrelay">
-                <a href="#">
-                    <i class="fa fa-instagram"></i>
-                </a>
-            </div>
-        </div>
-        <div class="single_instagram">
-            <img src="img/instragram/2.png" alt="">
-            <div class="ovrelay">
-                <a href="#">
-                    <i class="fa fa-instagram"></i>
-                </a>
-            </div>
-        </div>
-        <div class="single_instagram">
-            <img src="img/instragram/3.png" alt="">
-            <div class="ovrelay">
-                <a href="#">
-                    <i class="fa fa-instagram"></i>
-                </a>
-            </div>
-        </div>
-        <div class="single_instagram">
-            <img src="img/instragram/4.png" alt="">
-            <div class="ovrelay">
-                <a href="#">
-                    <i class="fa fa-instagram"></i>
-                </a>
-            </div>
-        </div>
-        <div class="single_instagram">
-            <img src="img/instragram/5.png" alt="">
-            <div class="ovrelay">
-                <a href="#">
-                    <i class="fa fa-instagram"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-    <!-- instragram_area_end -->
-
-    <!-- footer -->
-    <footer class="footer">
-        <div class="footer_top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-3 col-md-6 col-lg-3">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                address
-                            </h3>
-                            <p class="footer_text"> 200, Green road, Mongla, <br>
-                                New Yor City USA</p>
-                            <a href="#" class="line-button">Get Direction</a>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-md-6 col-lg-3">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                Reservation
-                            </h3>
-                            <p class="footer_text">+10 367 267 2678 <br>
-                                reservation@montana.com</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 col-md-6 col-lg-2">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                Navigation
-                            </h3>
-                            <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Rooms</a></li>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">News</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-md-6 col-lg-4">
-                        <div class="footer_widget">
-                            <h3 class="footer_title">
-                                Newsletter
-                            </h3>
-                            <form action="#" class="newsletter_form">
-                                <input type="text" placeholder="Enter your mail">
-                                <button type="submit">Sign Up</button>
-                            </form>
-                            <p class="newsletter_text">Subscribe newsletter to get updates</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="copy-right_text">
-            <div class="container">
-                <div class="footer_border"></div>
-                <div class="row">
-                    <div class="col-xl-8 col-md-7 col-lg-9">
-                        <p class="copy_right">
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </div>
-                    <div class="col-xl-4 col-md-5 col-lg-3">
-                        <div class="socail_links">
-                            <ul>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-facebook-square"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-twitter"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="fa fa-instagram"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- link that opens popup -->
-
-    <!-- form itself end-->
-        <form id="test-form" class="white-popup-block mfp-hide">
-                <div class="popup_box ">
-                        <div class="popup_inner">
-                            <h3>Check Availability</h3>
-                            <form action="#">
-                                <div class="row">
-                                    <div class="col-xl-6">
-                                        <input id="datepicker" placeholder="Check in date">
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <input id="datepicker2" placeholder="Check out date">
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <select class="form-select wide" id="default-select" class="">
-                                            <option data-display="Adult">1</option>
-                                            <option value="1">2</option>
-                                            <option value="2">3</option>
-                                            <option value="3">4</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <select class="form-select wide" id="default-select" class="">
-                                            <option data-display="Children">1</option>
-                                            <option value="1">2</option>
-                                            <option value="2">3</option>
-                                            <option value="3">4</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-12">
-                                        <select class="form-select wide" id="default-select" class="">
-                                            <option data-display="Room type">Room type</option>
-                                            <option value="1">Laxaries Rooms</option>
-                                            <option value="2">Deluxe Room</option>
-                                            <option value="3">Signature Room</option>
-                                            <option value="4">Couple Room</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-xl-12">
-                                        <button type="submit" class="boxed-btn3">Check Availability</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-            </form>
     <!-- form itself end -->
 
     <!-- JS here -->

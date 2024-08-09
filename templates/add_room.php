@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../public/css/admin.css">
-    <title>AdminSite</title>
+
+    <title>Admin</title>
     <style>
         /* High-Level CSS for the Form */
         .form-container {
@@ -61,9 +62,78 @@
         .form-group button:hover {
             background-color: #45a049;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* Snackbar styles */
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #923d41;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 9999;
+    right: 30px; /* Position from the right */
+    top: 30px;   /* Position from the top */
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {top: 0; opacity: 0;} 
+    to {top: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {top: 0; opacity: 0;}
+    to {top: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {top: 30px; opacity: 1;} 
+    to {top: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {top: 30px; opacity: 1;}
+    to {top: 0; opacity: 0;}
+}
+
     </style>
 </head>
 <body>
+<?php if (isset($_GET['msg'])): ?>
+        <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
+        <script>
+            window.onload = function() {
+                var snackbar = document.getElementById('snackbar');
+                snackbar.className = "show";
+                setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+            };
+        </script>
+    <?php endif; ?>
     
     <!-- SIDEBAR -->
     <section id="sidebar">
@@ -130,7 +200,7 @@
                             <?php
                             // Fetch hostels from the database
                             include '../config/connection.php';
-                            $query = "SELECT HostelID, HostelName FROM hostels";
+                            $query = "SELECT HostelID, HostelName FROM Hostels";
                             $result = mysqli_query($conn, $query);
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo "<option value='{$row['HostelID']}'>{$row['HostelName']}</option>";
