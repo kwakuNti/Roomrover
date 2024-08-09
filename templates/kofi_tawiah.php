@@ -13,7 +13,7 @@ include "../includes/room_selection_kofi.php";
 	<link rel="stylesheet" href="../public/css/roomates.css">
 	<title>Hostels</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <!-- <link rel="stylesheet" href="../public/css/snackbar.css"> -->
+    <link rel="stylesheet" href="../public/css/snackbar.css"> 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
 <body>
