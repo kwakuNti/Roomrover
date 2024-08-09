@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../public/css/admin.css">
-    <title>AdminSite</title>
+    <title>Admin</title>
     <style>
         /* High-Level CSS for the Form */
         .form-container {
@@ -130,7 +130,7 @@
                             <?php
                             // Fetch hostels from the database
                             include '../config/connection.php';
-                            $query = "SELECT HostelID, HostelName FROM hostels";
+                            $query = "SELECT HostelID, HostelName FROM Hostels";
                             $result = mysqli_query($conn, $query);
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo "<option value='{$row['HostelID']}'>{$row['HostelName']}</option>";
