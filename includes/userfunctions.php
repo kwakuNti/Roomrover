@@ -79,90 +79,45 @@ function getRoomDetails($userId) {
 }
 
 
-function getRoommatesDetails($userId) {
+function getRoomDetails($userId) {
     global $conn;
 
-    // First, get the PairingID(s) for the current user
-    $pairingQuery = "
-        SELECT p.PairingID
-        FROM PairingMembers pm
-        JOIN Pairings p ON pm.PairingID = p.PairingID
-        WHERE pm.UserID = ?
-    ";
-
-    $pairingStmt = $conn->prepare($pairingQuery);
-    $pairingStmt->bind_param("i", $userId);
-    $pairingStmt->execute();
-    $pairingResult = $pairingStmt->get_result();
-    
-    $pairingIDs = [];
-    while ($row = $pairingResult->fetch_assoc()) {
-        $pairingIDs[] = $row['PairingID'];
-    }
-
-    $pairingStmt->close();
-
-    if (empty($pairingIDs)) {
-        return []; // No pairings found for the user
-    }
-
-    // Convert the array to a comma-separated string for the IN clause
-    $pairingIDsStr = implode(',', array_map('intval', $pairingIDs));
-
-    // Fetch the details for all users in the same pairings
+    // Query to get the room details
     $query = "
         SELECT 
-            p.PairingID,
-            u.UserID,
-            u.FirstName,
-            u.LastName,
-            u.Bio,
-            u.PhoneNumber,
-            u.ProfileImage,
-            (
-                SELECT GROUP_CONCAT(l.LikeText) 
-                FROM Likes l 
-                JOIN UserLikes ul ON l.LikeID = ul.LikeID 
-                WHERE ul.UserID = u.UserID
-            ) AS Likes,
-            (
-                SELECT GROUP_CONCAT(d.DislikeText) 
-                FROM Dislikes d 
-                JOIN UserDislikes ud ON d.DislikeID = ud.DislikeID 
-                WHERE ud.UserID = u.UserID
-            ) AS Dislikes
-        FROM 
-            Pairings p
-        JOIN 
-            PairingMembers pm ON p.PairingID = pm.PairingID
-        JOIN 
-            Users u ON pm.UserID = u.UserID
-        WHERE 
-            p.PairingID IN ($pairingIDsStr)
-            AND u.UserID != ?
-        LIMIT 0, 25
+            h.HostelID,
+            h.HostelName, 
+            r.RoomID,
+            r.RoomNumber, 
+            r.Capacity,
+            r.Price,
+            r.Description,
+            COUNT(DISTINCT b.UserID) AS CurrentOccupants,
+            GROUP_CONCAT(DISTINCT f.FacilityName) AS Facilities
+        FROM Bookings b
+        JOIN Rooms r ON b.RoomID = r.RoomID
+        JOIN Hostels h ON r.HostelID = h.HostelID
+        LEFT JOIN RoomFacilities rf ON r.RoomID = rf.RoomID
+        LEFT JOIN Facilities f ON rf.FacilityID = f.FacilityID
+        WHERE r.RoomID = (SELECT RoomID FROM Bookings WHERE UserID = ? LIMIT 1)
+        GROUP BY h.HostelID, h.HostelName, r.RoomID, r.RoomNumber, r.Capacity, r.Price, r.Description
     ";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $userId); // Bind the user ID to exclude the current user
+    $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    $roommates = [];
+    $roomDetails = $result->fetch_assoc();
 
-    while ($row = $result->fetch_assoc()) {
-        $roommates[] = [
-            'user_id' => $row['UserID'],
-            'first_name' => $row['FirstName'],
-            'last_name' => $row['LastName'],
-            'bio' => $row['Bio'],
-            'phone_number' => $row['PhoneNumber'],
-            'profile_image' => $row['ProfileImage'],
-            'likes' => explode(',', $row['Likes']),
-            'dislikes' => explode(',', $row['Dislikes'])
-        ];
+    if ($roomDetails) {
+        // Convert facilities string to array
+        $roomDetails['Facilities'] = $roomDetails['Facilities'] ? explode(',', $roomDetails['Facilities']) : [];
+        
+        // Calculate available spaces
+        $roomDetails['AvailableSpaces'] = $roomDetails['Capacity'] - $roomDetails['CurrentOccupants'];
     }
 
     $stmt->close();
-    return $roommates;
+    return $roomDetails;
 }
