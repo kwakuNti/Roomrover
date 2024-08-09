@@ -205,6 +205,9 @@ $roomDetails = getRoomDetails($userId);
                 <div class="view-button">
                     <a href="roomates.php" class="view-btn">View</a>
                 </div>
+                <div class="view-button">
+                    <a href="suggestionPage.php" class="view-btn">Let us suggest a roomate</a>
+                </div>
             </div>
         </div>
     </div>
