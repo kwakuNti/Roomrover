@@ -1,12 +1,10 @@
 <?php
-session_start();
+
 include '../config/connection.php';
+include '../config/config.php';
 
 // Check if user is logged in
-if (!isset($_SESSION['UserID'])) {
-    header("Location: ../templates/login.php?msg=Please log in first.");
-    exit();
-}
+checkLogin();
 
 $userId = $_SESSION['UserID'];
 $newBio = isset($_POST['bio']) ? trim($_POST['bio']) : '';

@@ -3,11 +3,9 @@ include "../config/core.php";
 include "../config/connection.php";
 include '../includes/notifications.php';
 // Fetch user details
-if (!isset($_SESSION['UserID'])) {
-    // If UserID is not set, redirect to login page
-    header("Location: ../templates/login.php?msg=Please log in first.");
-    exit();
-}
+
+checkLogin();
+
 $userDetails = getUserDetails($userId);
 ?>
 <!DOCTYPE html>

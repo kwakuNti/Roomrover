@@ -3,11 +3,7 @@ include '../config/core.php';
 include '../config/connection.php';
 
 // Ensure the session is started
-session_start();
-if (!isset($_SESSION['UserID'])) {
-    header("Location: ../templates/login.php?msg=Please log in first.");
-    exit();
-}
+
 
 $userId = $_SESSION['UserID'];
 

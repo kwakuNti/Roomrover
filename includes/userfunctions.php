@@ -1,6 +1,5 @@
 <?php
 include '../config/connection.php';
-include '../config/core.php';
 $userId = $_SESSION['UserID'];
 // user_functions.php
 function getUserDetails($userId) {
