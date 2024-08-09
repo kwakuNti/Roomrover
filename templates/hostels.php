@@ -55,7 +55,6 @@ $userID = $_SESSION['UserID'];
                                     <ul id="navigation">
                                         <li><a href="home.php">home</a></li>
                                         <li><a class="active" href="hostels.php">hostels</a></li>
-                                        <li><a href="about.php">About</a></li>
                                         <li><a href="profile.php">Profile</a></li>
                                     </ul>
                                 </nav>

@@ -55,7 +55,6 @@
                                     <ul id="navigation">
                                         <li><a class="active" href="home.php">home</a></li>
                                         <li><a href="hostels.php">hostels</a></li>
-                                        <li><a href="about.php">About</a></li>
                                         <li><a href="profile.php">Profile</a></li>
                                     </ul>
                                 </nav>
