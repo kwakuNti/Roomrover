@@ -13,19 +13,19 @@ include "../includes/room_selection_kofi.php";
 	<link rel="stylesheet" href="../public/css/roomates.css">
 	<title>Hostels</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-    <link rel="stylesheet" href="../public/css/snackbar.css">
+    <!-- <link rel="stylesheet" href="../public/css/snackbar.css"> -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
 <body>
 <?php if (isset($_GET['msg'])): ?>
-        <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
+        <!-- <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
         <script>
             window.onload = function() {
                 var snackbar = document.getElementById('snackbar');
                 snackbar.className = "show";
                 setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
             };
-        </script>
+        </script> -->
     <?php endif; ?>
     
     <!-- Snackbar for validation errors -->
