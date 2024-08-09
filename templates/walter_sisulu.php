@@ -37,7 +37,7 @@ include "../includes/room_selection_wan.php";
     <div class="band">
         <h1>WALTER SISULU'S ROOMS</h1>
     </div>
-        <?php displayRooms(3); ?>
+        <?php displayRooms(2); ?>
     </div>
 
     <script src="../public/js/roomates.js"></script>

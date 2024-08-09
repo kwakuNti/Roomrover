@@ -36,7 +36,7 @@ include "../includes/room_selection_oteng.php";
     <div class="band">
         <h1>OTENG KORANKYE'S ROOMS</h1>
     </div>
-        <?php displayRooms(5); ?>
+        <?php displayRooms(4); ?>
     </div>
 
     <script src="../public/js/roomates.js"></script>

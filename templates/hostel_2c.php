@@ -36,7 +36,7 @@ include "../includes/room_selection_2c.php";
     <div class="band">
         <h1>HOSTEL2C'S ROOMS</h1>
     </div>
-        <?php displayRooms(6); ?>
+        <?php displayRooms(5); ?>
     </div>
 
     <script src="../public/js/roomates.js"></script>
