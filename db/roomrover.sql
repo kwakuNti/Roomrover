@@ -103,7 +103,7 @@ CREATE TABLE Requests (
     RequestDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
     Accepted BOOLEAN DEFAULT FALSE,   
     FOREIGN KEY (SenderUserID) REFERENCES Users(UserID),
-    FOREIGN KEY (ReceiverUserID) REFERENCES Users(UserID),
+    FOREIGN KEY (ReceiverUserID) REFERENCES Users(UserID)
 );
 
 CREATE TABLE Feedback (
@@ -155,15 +155,15 @@ CREATE TABLE UserKnows (
     FOREIGN KEY (KnowID) REFERENCES Knows(KnowID)
 );
 
--- Insert initial data into Hostels table
-INSERT INTO Hostels (HostelName, Available) VALUES
-('Hostel A', TRUE),
-('Hostel B', TRUE),
-('Hostel C', TRUE),
-('Hostel D', TRUE),
-('Hostel E', TRUE),
-('Hostel F', TRUE),
-('Hostel G', TRUE);
+
+INSERT INTO Hostels (HostelName) VALUES
+('Kofi Tawiah'),
+('Wangari Mathai'),
+('Walter Sisulu'),
+('Ephraim-Amu'),
+('Oteng Korankye'),
+('Hostel 2C'),
+('Hostel 2D');
 
 -- Insert initial data into Rooms table
 INSERT INTO Rooms (HostelID, RoomNumber, Capacity, RoomImage, Available) VALUES
@@ -204,3 +204,45 @@ INSERT INTO Slots (RoomID, SlotNumber, IsAvailable) VALUES
 (7, 2, TRUE),
 (7, 3, TRUE),
 (7, 4, TRUE);
+
+
+-- Insert initial data into Likes table
+INSERT INTO Likes (LikeText) VALUES
+('Clean Room'),
+('Organized Space'),
+('Quiet Roommate'),
+('Shared Chores'),
+('Natural Light'),
+('Personal Space'),
+('Good Ventilation'),
+('Minimalistic Decor'),
+('Morning Person'),
+('Evening Person');
+
+
+-- Insert initial data into Dislikes table
+INSERT INTO Dislikes (DislikeText) VALUES
+('Messy Roommate'),
+('Late-night Noise'),
+('Overcrowded Space'),
+('Strong Odors'),
+('Cluttered Room'),
+('Loud Music'),
+('Noisy Neighbors'),
+('Frequent Visitors'),
+('Poor Ventilation'),
+('Overuse of Shared Items');
+
+
+-- Insert initial data into Knows table
+INSERT INTO Knows (KnowText) VALUES
+('Differently Abled'),
+('First Year'),
+('Second Year'),
+('Third Year'),
+('Fourth Year'),
+('Early Bird'),
+('Night Owl'),
+('Needs Quiet'),
+('Roommate Preferences'),
+('Study Habits');

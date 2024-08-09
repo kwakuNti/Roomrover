@@ -1,11 +1,7 @@
 <?php
 include "../config/core.php";
 
-if (!isset($_SESSION['UserID'])) {
-    // If UserID is not set, redirect to login page
-    header("Location: ../templates/login.php?msg=Please log in first.");
-    exit();
-}
+checkLogin();
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,3 +1,12 @@
+<?php
+include "../config/core.php";
+include "../config/connection.php";
+
+// Fetch user details
+
+checkLogin();
+
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
 
