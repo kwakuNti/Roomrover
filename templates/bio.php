@@ -1,3 +1,13 @@
+<?php
+include '../includes/bio_function.php';
+$profileUserId = isset($_GET['user_id']) ? intval($_GET['user_id']) : null; // Get the profile user ID from the URL
+$userDetails = getUserDetails($userId);
+// Get user preferences
+$preferences = getUserPreferences($profileUserId);
+$likes = $preferences['likes'];
+$dislikes = $preferences['dislikes'];
+$knows = $preferences['knows'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,36 +15,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <link rel="stylesheet" href="../public/css/bio.css">
+    <link rel="stylesheet" href="../public/css/snackbar.css">
     <title>Bio</title>
 </head>
-<body
+<body>
+<?php if (isset($_GET['msg'])): ?>
+        <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
+        <script>
+            window.onload = function() {
+                var snackbar = document.getElementById('snackbar');
+                snackbar.className = "show";
+                setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+            };
+        </script>
+    <?php endif; ?>
     <main class="wrapper">
        <section class="featured-box" id="home">
           <div class="featured-text">
             <div class="featured-text-card">
-                <span>Clifford Nkansah</span>
             </div>
             <div class="featured-name">
-                <p>I'm <span class="typedText"></span></p>
+                <p>I'm <span ><?php echo $fullName; ?></span></p>
             </div>
             <div class="featured-text-info">
-                <p>Experienced frontend developer with a passion for creating visually stunning
-                   and user-friendly websites.
+                <p><?php echo $userDetails['bio']; ?>
+                
                 </p>
             </div>
             <div class="featured-text-btn">
-                <button class="btn blue-btn">Request As Roomate</button>
-            </div>
-            <div class="social_icons">
-                <div class="icon"><i class="uil uil-instagram"></i></div>
-                <div class="icon"><i class="uil uil-linkedin-alt"></i></div>
-                <div class="icon"><i class="uil uil-dribbble"></i></div>
-                <div class="icon"><i class="uil uil-github-alt"></i></div>
-            </div>
+            <form action="../actions/request_roomate.php" method="POST">
+    <input type="hidden" name="profileUserId" value="<?php echo $profileUserId; ?>">
+    <button type="submit" class="btn blue-btn">Request As Roommate</button>
+</form>
+
+
+</div>
+
+            
           </div>
           <div class="featured-image">
             <div class="image">
-                <img src="../assets/images/hostel1.jpg" alt="avatar">
+            <img src="<?php echo $profileImage; ?>" alt="<?php echo $fullName; ?>">
             </div>
           </div>
           <div class="scroll-icon-box">
@@ -54,10 +75,8 @@
             <div class="col">
                 <div class="about-info">
                     <h3>My introduction</h3>
-                    <p>I am well-versed in HTML, CSS and JavaScript , and other cutting edge
-                       frameworks and libraries,which allows me to implement interactive features.
-                       Additionally, I have experirence working with content management systems (CMS) like
-                       WordPress.
+                    <p>                <p><?php echo $userDetails['bio']; ?>
+
                     </p>
                 </div>
             </div>
@@ -67,13 +86,13 @@
                         <h3>Likes</h3>
                     </div>
                     <div class="skills-list">
-                        <span>food</span>
-                        <span>studying</span>
-                        <span>fun</span>
-                        <span>book</span>
-                        <span>music</span>
-                        <span>React</span>
-                        <span>Angular</span>
+                        <?php if (empty($likes)): ?>
+                            <p>No likes set.</p>
+                        <?php else: ?>
+                            <?php foreach ($likes as $like): ?>
+                                <span><?php echo htmlspecialchars($like['LikeText']); ?></span>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="skills-box">
@@ -81,10 +100,13 @@
                         <h3>Dislikes</h3>
                     </div>
                     <div class="skills-list">
-                        <span>dirt</span>
-                        <span>nosy roomates</span>
-                        <span>silence</span>
-                        <span>not fun</span>
+                        <?php if (empty($dislikes)): ?>
+                            <p>No dislikes set.</p>
+                        <?php else: ?>
+                            <?php foreach ($dislikes as $dislike): ?>
+                                <span><?php echo htmlspecialchars($dislike['DislikeText']); ?></span>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="skills-box">
@@ -92,9 +114,13 @@
                         <h3>Know</h3>
                     </div>
                     <div class="skills-list">
-                        <span>I have a girlfriend</span>
-                        <span>im barely in the room</span>
-                        <span>always availble</span>
+                        <?php if (empty($knows)): ?>
+                            <p>No knows set.</p>
+                        <?php else: ?>
+                            <?php foreach ($knows as $know): ?>
+                                <span><?php echo htmlspecialchars($know['KnowText']); ?></span>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -112,21 +138,12 @@
              <div class="col">
                 <div class="contact-info">
                     <h2>Find Me <i class="uil uil-corner-right-down"></i></h2>
-                    <p><i class="uil uil-envelope"></i> Email: john@doe.com</p>
-                    <p><i class="uil uil-phone"></i> Tel: +250 708 770 000</p>
-                    <p><i class="uil uil-message"></i> Class of: 2025</p>
+                    <p><i class="uil uil-envelope"></i> Email: <?php echo $email; ?></p>
+                    <p><i class="uil uil-phone"></i> Tel: <?php echo $userDetails['PhoneNumber']; ?></p>
+                    <p><i class="uil uil-message"></i> Ashesi</p>
                 </div>
              </div>
-             <div class="col">
-                <div class="form-control">
-                    <div class="text-area">
-                        <textarea placeholder="Message"></textarea>
-                    </div>
-                    <div class="form-button">
-                        <button class="btn">Send<i class="uil uil-message"></i></button>
-                    </div>
-                </div>
-             </div>
+             
           </div>
        </section>
 
