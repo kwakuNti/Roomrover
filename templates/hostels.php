@@ -59,7 +59,6 @@ $userID = $_SESSION['UserID'];
                                     <ul id="navigation">
                                         <li><a href="home.php">home</a></li>
                                         <li><a class="active" href="hostels.php">hostels</a></li>
-                                        <li><a href="about.php">About</a></li>
                                         <li><a href="profile.php">Profile</a></li>
                                     </ul>
                                 </nav>
@@ -73,30 +72,7 @@ $userID = $_SESSION['UserID'];
                             </div> 
                         </div>
                         <div class="col-xl-5 col-lg-4 d-none d-lg-block">
-                            <div class="book_room">
-                                <div class="socail_links">
-                                    <ul>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-facebook-square"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-instagram"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="book_btn d-none d-lg-block">
-                                    <a class="popup-with-form" href="#test-form">Book A Room</a>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="col-12">
                             <div class="mobile_menu d-block d-lg-none"></div>

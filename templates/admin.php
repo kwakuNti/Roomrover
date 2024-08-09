@@ -30,6 +30,7 @@ $conn->close();
 	<title>AdminSite</title>
 </head>
 <body>
+
 	
 	<!-- SIDEBAR -->
 	<section id="sidebar">
