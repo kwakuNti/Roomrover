@@ -1,11 +1,12 @@
 <?php
+// Enable error reporting for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Include the core file for session handling
 include '../config/core.php';
 
-// Check if user is logged in and session user ID is set
+// Check if the user is logged in and session user ID is set
 if (!isset($_SESSION['UserID'])) {
     die("Error: User is not logged in.");
 }
@@ -38,7 +39,7 @@ function cosineSimilarity($a, $b) {
 
 // Function to retrieve user likes, dislikes, and knows from the database
 function getUserAttributes($conn, $table) {
-    $sql = "SELECT UserID, {$table}ID FROM User{$table}s"; // Add 's' to match the table names
+    $sql = "SELECT UserID, {$table}ID FROM User{$table}s";
     $result = $conn->query($sql);
     
     $userAttributes = [];
@@ -81,13 +82,11 @@ function findSimilarUsers($targetUserID, $matrix) {
     foreach ($matrix as $userID => $vector) {
         if ($userID != $targetUserID) {
             $similarity = cosineSimilarity(array_values($targetVector), array_values($vector));
-            // Convert similarity to percentage and round to 2 decimal places
             $similarityPercentage = round($similarity * 100, 2);
             $similarities[] = ['UserID' => $userID, 'Similarity' => $similarityPercentage];
         }
     }
 
-    // Sort similarities in descending order
     usort($similarities, function($a, $b) {
         return $b['Similarity'] <=> $a['Similarity'];
     });
@@ -127,17 +126,6 @@ $userLikes = getUserAttributes($conn, 'Like');
 $userDislikes = getUserAttributes($conn, 'Dislike');
 $userKnows = getUserAttributes($conn, 'Know');
 
-// Debug: Print out the retrieved attributes
-echo "<h2>Debug Information:</h2>";
-echo "<pre>";
-echo "User Likes:\n";
-print_r($userLikes);
-echo "\nUser Dislikes:\n";
-print_r($userDislikes);
-echo "\nUser Knows:\n";
-print_r($userKnows);
-echo "</pre>";
-
 // Create the user-attribute matrices
 $likesMatrix = createUserAttributeMatrix($userLikes);
 $dislikesMatrix = createUserAttributeMatrix($userDislikes);
@@ -155,29 +143,23 @@ foreach ($allUsers as $userID) {
     );
 }
 
-// Debug: Print out the combined matrix
-echo "<h2>Combined Matrix:</h2>";
-echo "<pre>";
-print_r($combinedMatrix);
-echo "</pre>";
-
 // Check if the target user exists in the combined matrix
 if (!isset($combinedMatrix[$target_user_id])) {
     die("Error: Target user not found in the attribute matrices.");
 }
 
-// Output the target user vector for debugging
-echo "<h2>Target User Vector:</h2>";
-echo "<pre>";
-print_r($combinedMatrix[$target_user_id]);
-echo "</pre>";
-
 // Find similar users
 $similarUsers = findSimilarUsers($target_user_id, $combinedMatrix);
 
-// Output similar users
-echo "<h1>Similar Users for User {$target_user_id}</h1>";
-foreach ($similarUsers as $pair) {
+// Filter out users with similarity above 30%
+$filteredUsers = array_filter($similarUsers, function($pair) {
+    return $pair['Similarity'] > 30;
+});
+
+// Output similar users in JSON format
+$similarUsersData = [];
+
+foreach ($filteredUsers as $pair) {
     $user_profile = get_user_profile($conn, $pair['UserID']);
     $similarity = $pair['Similarity'];
 
@@ -185,20 +167,22 @@ foreach ($similarUsers as $pair) {
         continue;
     }
 
-    echo "<div class='pairing'>";
-    echo "<p>User: {$user_profile['FirstName']} {$user_profile['LastName']} (UserID: {$user_profile['UserID']})</p>";
-    echo "<p>Similarity: {$similarity}%</p>";
-    echo "</div><hr>";
+    $similarUsersData[] = [
+        'UserID' => $user_profile['UserID'],
+        'FirstName' => $user_profile['FirstName'],
+        'LastName' => $user_profile['LastName'],
+        'ProfileImage' => $user_profile['ProfileImage'],
+        'Similarity' => $similarity
+    ];
 }
 
-// Test cosine similarity calculation with known vectors
-$vectorA = $combinedMatrix[$target_user_id];
-$testUserID = 1; // Example user ID to test similarity with
-$vectorB = $combinedMatrix[$testUserID] ?? [];
-
-$testSimilarity = cosineSimilarity(array_values($vectorA), array_values($vectorB));
-echo "<h2>Cosine Similarity Test:</h2>";
-echo "Similarity between User {$target_user_id} and User {$testUserID}: " . ($testSimilarity * 100) . "%";
-
+// Close the database connection
 $conn->close();
+
+// Set content type to JSON
+header('Content-Type: application/json');
+
+// Output the data as JSON
+echo json_encode(['status' => 'success', 'data' => $similarUsersData]);
+
 ?>

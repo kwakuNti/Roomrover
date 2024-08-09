@@ -321,6 +321,14 @@ body {
   margin-top: 10px;
 }
 
+
+#suggestions-container{
+  display: flex;
+  flex-direction: row;
+
+}
+
+
 .button.return:hover {
   background-color: var(--accent-color);
   color: #fff;
@@ -357,3 +365,5 @@ body {
   margin-top: 10px;
   width: 200px;
 }
+
+
