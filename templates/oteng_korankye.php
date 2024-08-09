@@ -1,5 +1,5 @@
 <?php
-include "../includes/room_selection.php";
+include "../includes/room_selection_oteng.php";
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +36,7 @@ include "../includes/room_selection.php";
     <div class="band">
         <h1>OTENG KORANKYE'S ROOMS</h1>
     </div>
-        <?php displayRooms(); ?>
+        <?php displayRooms(5); ?>
     </div>
 
     <script src="../public/js/roomates.js"></script>

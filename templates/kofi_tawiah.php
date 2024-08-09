@@ -1,5 +1,5 @@
 <?php
-include "../includes/room_selection.php";
+include "../includes/room_selection_kofi.php";
 ?>
 
 <!DOCTYPE html>
