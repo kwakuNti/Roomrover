@@ -13,9 +13,25 @@ include "../includes/room_selection.php";
 	<link rel="stylesheet" href="../public/css/roomates.css">
 	<title>AdminSite</title>
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="../public/css/snackbar.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 </head>
 <body>
+<?php if (isset($_GET['msg'])): ?>
+        <div id="snackbar"><?php echo htmlspecialchars($_GET['msg']); ?></div>
+        <script>
+            window.onload = function() {
+                var snackbar = document.getElementById('snackbar');
+                snackbar.className = "show";
+                setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+            };
+        </script>
+    <?php endif; ?>
+    
+    <!-- Snackbar for validation errors -->
+    <div id="snackbar" class="snackbar"></div>
+
+
 <div class="wrapper">
     <div class="band">
         <h1>KOFI TAWIAH'S ROOMS</h1>

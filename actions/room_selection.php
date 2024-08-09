@@ -489,9 +489,14 @@
 
 
 
-
 <?php
 // ../ACTIONS/ROOM_SELECTION.PHP
+
+// Enable error reporting
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include "../config/connection.php";
 include "../config/core.php";
 
@@ -618,14 +623,25 @@ try {
         // Commit transaction
         $conn->commit();
         echo "Success: Both you and your pair have been moved to the new room.";
+        // header("Location: ../templates/kofi_tawiah.php?msg=Success");
+        $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '../templates/default.php';
+        header("Location: $previousPage?msg=Success");
+
     } else {
         echo "Error: Not enough available slots in the room.";
+        $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '../templates/default.php';
+        header("Location: $previousPage?msg=Unsuccess");
         $conn->rollback();
     }
 } catch (Exception $e) {
     // Rollback transaction on error
     $conn->rollback();
     echo "Error: Could not complete the room switch. Please try again.";
+    // header("Location: ../templates/kofi_tawiah.php?msg=Unsuccess");
+
+    $previousPage = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '../templates/default.php';
+    header("Location: $previousPage?msg=Unsuccess");
+
 }
 
 $stmt->close();
