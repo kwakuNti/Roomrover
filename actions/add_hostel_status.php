@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conn->close();
 
     // Redirect with feedback message
-    header("Location: ../templates/admin.php?status=$status&msg=" . urlencode($msg));
+    header("Location: ../templates/add_room.php?status=$status&msg=" . urlencode($msg));
     exit();
 }
 ?>
