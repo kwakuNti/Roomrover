@@ -41,7 +41,7 @@ $userDetails = getUserDetails($userId);
             <a href="#" class="back" onclick="window.history.back(); return false;"><i class="fas fa-arrow-left"></i></a>
             <a href="roomates.php"><i class="fas fa-home"></i> Roomates</a>
             <a href="#" id="feedback-button"><i class="fas fa-comment"></i> Feedback</a>
-            <a href="../templates/preferences.php"><i class="fas fa-cogs"></i> Preferences</a>
+            <a href="../templates/preferencesx.php"><i class="fas fa-cogs"></i> Preferences</a>
             <a href="#" id="notification-link"><i class="fas fa-bell"></i> Notifications</a>
         </nav>
         <div class="logout">
