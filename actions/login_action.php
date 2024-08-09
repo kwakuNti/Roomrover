@@ -1,5 +1,6 @@
 <?php
-session_start();
+include '../config/core.php';
+
 include '../config/connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

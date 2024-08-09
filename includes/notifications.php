@@ -1,6 +1,5 @@
 <?php
 include '../config/connection.php';
-include '../config/core.php';
 include '../includes/userfunctions.php';
 function getNotifications($userId, $conn) {
     // Fetch notifications for the logged-in user
