@@ -13,15 +13,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Update the hostel availability in the database
     $query = "UPDATE Hostels SET Available = ? WHERE HostelID = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('ii', $hostelStatus, $hostelID); // 'b' for boolean
+    $stmt->bind_param('ii', $hostelStatus, $hostelID); // 'i' for integer
     
     if ($stmt->execute()) {
-        echo "Hostel status updated successfully.";
+        $msg = "Hostel status updated successfully.";
+        $status = "success";
     } else {
-        echo "Error updating hostel status: " . $conn->error;
+        $msg = "Error updating hostel status: " . $conn->error;
+        $status = "error";
     }
 
     $stmt->close();
     $conn->close();
+
+    // Redirect with feedback message
+    header("Location: ../templates/admin.php?status=$status&msg=" . urlencode($msg));
+    exit();
 }
 ?>
