@@ -42,7 +42,7 @@ include "../includes/room_selection_wan.php";
     <div class="band">
         <h1>WANGARI MATHAI'S ROOMS</h1>
     </div>
-        <?php displayRooms(1); ?>
+        <?php displayRooms(2); ?>
     </div>
 
     <script src="../public/js/roomates.js"></script>
